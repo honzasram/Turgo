@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turgo.Common", "Turgo.Common\Turgo.Common.csproj", "{34015C4B-2771-403C-8A52-70479AB6D2E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopAplication", "DevelopAplication\DevelopAplication.csproj", "{D0269EE7-D8FC-42E5-9043-CE8B3B125ADD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sramek.FX", "Sramek.FX\Sramek.FX.csproj", "{053C3352-B120-4450-8DA4-0A2E8EB557C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{34015C4B-2771-403C-8A52-70479AB6D2E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34015C4B-2771-403C-8A52-70479AB6D2E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34015C4B-2771-403C-8A52-70479AB6D2E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0269EE7-D8FC-42E5-9043-CE8B3B125ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0269EE7-D8FC-42E5-9043-CE8B3B125ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0269EE7-D8FC-42E5-9043-CE8B3B125ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0269EE7-D8FC-42E5-9043-CE8B3B125ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{053C3352-B120-4450-8DA4-0A2E8EB557C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053C3352-B120-4450-8DA4-0A2E8EB557C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053C3352-B120-4450-8DA4-0A2E8EB557C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053C3352-B120-4450-8DA4-0A2E8EB557C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
