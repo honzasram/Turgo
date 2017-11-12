@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,11 +52,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sramek.FX\Sramek.FX.csproj">
       <Project>{053c3352-b120-4450-8da4-0a2e8eb557c9}</Project>
       <Name>Sramek.FX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Turgo.Common\Turgo.Common.csproj">
+      <Project>{34015C4B-2771-403C-8A52-70479AB6D2E9}</Project>
+      <Name>Turgo.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
