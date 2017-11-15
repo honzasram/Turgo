@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sramek.FX\Sramek.FX.csproj">
+      <Project>{053c3352-b120-4450-8da4-0a2e8eb557c9}</Project>
+      <Name>Sramek.FX</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Turgo.Common\Turgo.Common.csproj">
       <Project>{34015c4b-2771-403c-8a52-70479ab6d2e9}</Project>
       <Name>Turgo.Common</Name>

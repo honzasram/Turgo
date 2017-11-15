@@ -12,6 +12,7 @@ using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using log4net.Util;
 using Sramek.FX;
+using Sramek.FX.WPF;
 using Turgo.Common;
 
 namespace DevelopAplication
@@ -19,69 +20,14 @@ namespace DevelopAplication
     class Program
     {
         private static ILog mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private const int cNo = 8;
-        private const int cCourts = 2;
         private static Random mRandom = new Random((int) (DateTime.Now.Ticks /5));
 
         static void Main(string[] args)
         {
             ConsoleSetup(false);
-            var lClass = new Class
-            {
-                UserBase = new List<User>
-                {
-                    new User {ID = 0,  Name = "A"},
-                    new User {ID = 1,  Name = "B"},
-                    new User {ID = 2,  Name = "C"},
-                    new User {ID = 3,  Name = "D"},
-                    new User {ID = 4,  Name = "E"},
-                    new User {ID = 5,  Name = "F"},
-                    new User {ID = 6,  Name = "G"},
-                    new User {ID = 7,  Name = "H"},
-                    new User {ID = 8,  Name = "I"},
-                    new User {ID = 9,  Name = "J"},
-                    new User {ID = 10, Name = "K"}
-                }
-            };
-            for (int i = 0; i < 150; i++)
-            {
-                var lRound = RoundFactory.CreateRound(new List<uint> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, lClass, DateTime.Now, 3, "", "");
-
-                var lGames = lRound.Games;
-
-                foreach (var iGame in lGames)
-                {
-                    var lIDs = iGame.SideA.Select(a => a.ID).ToList();
-                    lIDs.AddRange(iGame.SideB.Select(a => a.ID));
-                }
-            }
-            //while (true)
-            //{
-            //    var lNumbers = new List<int>();
-            //    for (int i = 1; i < cNo + 1; i++)
-            //        lNumbers.Add(i);
-            //    var lPairs = new List<Tuple<int, int>>();
-            //    var lAttendDict = new Dictionary<int, int>();
-            //    lNumbers.ForEach(a => lAttendDict.Add(a, 0));
-
-            //    for (int i = 0; i < (cNo * cCourts); i++)
-            //    {
-            //        var lA = RandomItemFromMin(lAttendDict, mRandom);
-            //        lAttendDict[lA] += 1;
-            //        var lB = RandomItemFromMin(lAttendDict, mRandom);
-            //        while (lB == lA) lB = RandomItemFromMin(lAttendDict, mRandom);
-            //        lAttendDict[lB] += 1;
-            //        if(lA < lB)
-            //            lPairs.Add(new Tuple<int, int>(lA,lB));
-            //        else
-            //            lPairs.Add(new Tuple<int, int>(lB,lA));
-            //    }
-
-            //    PrintPairs(lPairs);
-            //    CreateGames(lPairs);
-
-            //    Console.ReadKey(); 
-            //}
+            
+            Console.WriteLine(TLoc.I.Name);
+            Console.ReadKey();
         }
 
         private static void CreateGames(List<Tuple<int, int>> aPairs)
@@ -182,5 +128,32 @@ namespace DevelopAplication
             var lRand = lLast[aRandom.Next(lLast.Length)];
             return lRand;
         }
+    }
+
+    public class TLoc : Loc<TLoc>
+    {
+        [Default("name")]
+        public string Name { get; set; }
+
+        public TLoc()
+        {
+            Load();
+        }
+    }
+
+    public class Base
+    {
+
+        public List<PropertyInfo> GetInfo()
+        {
+            var lType = GetType();
+            return lType.GetProperties().ToList();
+        }
+    }
+
+    public class Target : Base
+    {
+        public bool Cosi { get; set; }
+        public bool Cosi2 { get; set; }
     }
 }

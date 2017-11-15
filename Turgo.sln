@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sramek.FX", "Sramek.FX\Sram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turgo.Test", "Turgo.Test\Turgo.Test.csproj", "{00DDFCBB-0A87-4220-BD73-368D72D5EC1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turgo", "Turgo\Turgo.csproj", "{3A992254-4C24-4B06-9D13-0478D5C6D2B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{00DDFCBB-0A87-4220-BD73-368D72D5EC1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00DDFCBB-0A87-4220-BD73-368D72D5EC1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00DDFCBB-0A87-4220-BD73-368D72D5EC1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

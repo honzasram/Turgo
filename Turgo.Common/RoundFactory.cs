@@ -9,8 +9,7 @@ namespace Turgo.Common
 {
     public static class RoundFactory
     {
-        private static readonly ILog mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static Random mRandom = new Random((int)(DateTime.Now.Ticks / 5));
+        private static readonly Random mRandom = new Random((int)(DateTime.Now.Ticks / 5));
 
         public static Round CreateRound(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts, string aDescribtion, string aPlace)
         {

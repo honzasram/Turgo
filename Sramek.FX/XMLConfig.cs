@@ -4,7 +4,7 @@ using log4net;
 
 namespace Sramek.FX
 {
-    public static class XMLConfig
+    public class XMLConfig
     {
         private static readonly ILog mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static T Load<T>(string aPath)

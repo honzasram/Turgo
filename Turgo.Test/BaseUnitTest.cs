@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Turgo.Common;
+using Sramek.FX;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Turgo.Common.Model;
 
 namespace Turgo.Test
 {
@@ -95,6 +97,37 @@ namespace Turgo.Test
                 lMax = lGrouping.Select(a => a.Count).Max();
             }
             Console.WriteLine($"c {aCourts} - g {lMax}");
+        }
+
+    }
+
+    [TestClass]
+    public class ConfigUnitTest
+    {
+        [TestMethod]
+        public void CreateAndLoadConfiguration()
+        {
+            var lModel = new TurgoSettings {BaseClassConfiguration = new ClassConfiguration {
+                UserBaseList = new List<User>
+                    {
+                        new User() {ID = 0, Name = "A", Surname = "a"}, 
+                        new User() {ID = 1, Name = "B", Surname = "b"}, 
+                        new User() {ID = 2, Name = "C", Surname = "c"}, 
+                    } 
+                },
+                Model = new TurgoModel()
+            };
+            lModel.Model.ClassList = new List<Class>();
+            lModel.Model.ClassList.Add(new Class()
+            {
+                Name = "CLASS", UserBase = lModel.BaseClassConfiguration.UserBaseList, Year = 2017
+            });
+
+            TurgoSettings.Save(lModel);
+
+            TurgoSettings.Load();
+
+            Console.Write(TurgoSettings.I.Model.ClassList[0].Name);
         }
     }
 }
