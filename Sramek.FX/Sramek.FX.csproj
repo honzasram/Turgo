@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Settings.cs" />

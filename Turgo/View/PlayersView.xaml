@@ -3,47 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Turgo.View"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:turgo="clr-namespace:Turgo"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <DataGrid x:Name="MetroDataGrid"
-                  Grid.Row="1"
-                  Grid.Column="1"
                   Margin="5"
                   AutoGenerateColumns="False"
                   HeadersVisibility="All"
                   RowHeaderWidth="20"
-                  SelectionUnit="FullRow">
+                  ItemsSource="{Binding Players}"
+                  SelectionUnit="FullRow" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         Header="{Binding SelectedForRound, Source={x:Static turgo:TurgoLoc.I}}" />
                 <DataGridTextColumn Binding="{Binding Name}" Header="{Binding Name, Source={x:Static turgo:TurgoLoc.I}}" />
-                <controls:DataGridNumericUpDownColumn Binding="{Binding Points}"
-                                                      Header="{Binding Points, Source={x:Static turgo:TurgoLoc.I}}"
-                                                      Minimum="0"
-                                                      StringFormat="N0" />
+                <DataGridTextColumn Binding="{Binding Surname}" Header="{Binding Surname, Source={x:Static turgo:TurgoLoc.I}}" />
             </DataGrid.Columns>
             <DataGrid.Style>
                 <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">
                     <Setter Property="AlternatingRowBackground" Value="{DynamicResource GrayBrush10}" />
                 </Style>
             </DataGrid.Style>
+            <!--<DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding NewPlayerCommand}">
+                        <MenuItem.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <MultiBinding.Bindings>
+                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="New"></Binding>
+                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="Player"></Binding>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Command="{Binding DeletePlayerCommand}">
+                        <MenuItem.Header>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <MultiBinding.Bindings>
+                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="Delete"></Binding>
+                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="Player"></Binding>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>-->
             <DataGrid.RowStyle>
                 <Style BasedOn="{StaticResource MetroDataGridRow}" TargetType="{x:Type DataGridRow}">
                     <Style.Triggers>
-                        <!--<DataTrigger Binding="{Binding Price, Mode=OneWay, Converter={StaticResource AlbumPriceIsTooMuchConverter}}" Value="True">
-                            <Setter Property="Background" Value="#FF8B8B" />
-                            <Setter Property="Foreground" Value="DarkRed" />
-                        </DataTrigger>-->
-                        <!--  IsMouseOver  -->
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
-                                <!--<Condition Binding="{Binding Price, Mode=OneWay, Converter={StaticResource AlbumPriceIsTooMuchConverter}}" Value="True" />-->
                                 <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Background" Value="#FFBDBD" />
@@ -51,10 +76,10 @@
                     </Style.Triggers>
                 </Style>
             </DataGrid.RowStyle>
-            <DataGrid.RowValidationRules>
-                <!--<ValueConverter:AlbumPriceIsReallyTooMuchValidation ValidatesOnTargetUpdated="True" ValidationStep="CommittedValue" />
-                <ValueConverter:AlbumPriceIsReallyTooMuchValidation ValidatesOnTargetUpdated="True" ValidationStep="UpdatedValue" />-->
-            </DataGrid.RowValidationRules>
         </DataGrid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{Binding Load, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding LoadPlayersCommand}" />
+            <Button Content="{Binding Save, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding SavePlayersCommand}" />
+        </StackPanel>
     </Grid>
 </UserControl>

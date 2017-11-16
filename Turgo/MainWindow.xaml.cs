@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Dragablz;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace Turgo

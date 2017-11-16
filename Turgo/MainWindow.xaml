@@ -8,23 +8,44 @@
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:common="clr-namespace:Turgo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Turgo" Height="350" Width="525">
+    
     <controls:MetroWindow.DataContext>
         <l:MainWindowViewModel/>
     </controls:MetroWindow.DataContext>
+    
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="Players" Command="{Binding ShowPlayersCommand}"/>
+            <Button Content="{Binding Players, Source={x:Static common:TurgoLoc.I}}" Command="{Binding ShowPlayersCommand}"/>
+            <Button Command="{Binding NewRoundCommand}">
+                <Button.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <MultiBinding.Bindings>
+                                    <Binding Source="{x:Static common:TurgoLoc.I}" Path="New"></Binding>
+                                    <Binding Source="{x:Static common:TurgoLoc.I}" Path="Round"></Binding>
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Button.Content>
+            </Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
+    
     <Window.Resources>
         <system:String x:Key="Partition">DEFAULT</system:String>
     </Window.Resources>
+    
     <dockablz:Layout Partition="{StaticResource Partition}">
-        <dragablz:TabablzControl Margin="5" ConsolidateOrphanedItems="True" ItemsSource="{Binding TabContents}"  >
+        <dragablz:TabablzControl Margin="5" ConsolidateOrphanedItems="True" 
+                                 ItemsSource="{Binding TabContents}" 
+                                 SelectedItem="{Binding SelectedTab}">
             <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController Partition="{StaticResource Partition}" />
+                <dragablz:InterTabController Partition="{StaticResource Partition}"  />
             </dragablz:TabablzControl.InterTabController>
         </dragablz:TabablzControl>
     </dockablz:Layout>

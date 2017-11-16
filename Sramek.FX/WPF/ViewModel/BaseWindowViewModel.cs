@@ -12,8 +12,21 @@ namespace Sramek.FX.WPF.ViewModel
     public class BaseWindowViewModel : ObservableObject
     {
         protected readonly Dictionary<string,Func<object>> mFactoryFuncDictionary = new Dictionary<string, Func<object>>();
+        protected int mInstanceCount;
         
         public ObservableCollection<TabContent> TabContents { get; } = new ObservableCollection<TabContent>();
+
+        private TabContent mSelectedTab;
+        public TabContent SelectedTab
+        {
+            get { return mSelectedTab; }
+            set
+            {
+                if (mSelectedTab == value) return;
+                mSelectedTab = value;
+                OnPropertyChanged();
+            }
+        }
 
         public IInterTabClient InterTabClient { get; }
 
@@ -39,6 +52,7 @@ namespace Sramek.FX.WPF.ViewModel
         {
             var lContent = CreateContent(aKey);
             TabContents.Add(lContent);
+            SelectedTab = lContent;
         }
     }
 }

@@ -7,14 +7,15 @@ namespace Turgo.ViewModel
 {
     public class MainWindowViewModel : BaseWindowViewModel
     {
-        public string Cosi { get; set; }
-
-        public ICommand ShowPlayersCommand { get; }
+        public ICommand ShowPlayersCommand => new RelayCommand(() => { ShowTab("Players"); });
+        public ICommand NewRoundCommand => new RelayCommand(() => { ShowTab("Round"); });
 
         public MainWindowViewModel()
         {
-            ShowPlayersCommand = new RelayCommand(() => { ShowTab("Players"); });
             mFactoryFuncDictionary.Add("Players", () => new TabContent(TurgoLoc.I.Players, new PlayersView()));
+            mFactoryFuncDictionary.Add("Round", () => new TabContent(TurgoLoc.I.Round, new RoundFactoryView()));
+            if(mInstanceCount == 0) ShowTab("Players");
+            mInstanceCount++;
         }
     }
 }

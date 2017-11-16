@@ -21,10 +21,9 @@
 
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MahAppsTabablzControlStyle}">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource MahAppsTrapezoidDragableTabItemStyle}" />
-                <Setter Property="AdjacentHeaderItemOffset" Value="-12" />
                 <Setter Property="ShowDefaultAddButton" Value="False" />
                 <Setter Property="ShowDefaultCloseButton" Value="True" />
-                <Setter Property="CustomHeaderItemTemplate">
+                <Setter Property="HeaderItemTemplate">
                     <Setter.Value>
                         <DataTemplate DataType="{x:Type common:TabContent}">
                             <TextBlock Text="{Binding Header}" />
@@ -39,7 +38,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
         </ResourceDictionary>
     </Application.Resources>
 
