@@ -9,32 +9,32 @@ using log4net;
 
 namespace Sramek.FX.WPF
 {
-    public class SimpleCommand : ICommand
-    {
-        public Predicate<object> CanExecuteDelegate { get; set; }
-        public Action<object> ExecuteDelegate { get; set; }
+    //public class SimpleCommand : ICommand
+    //{
+    //    public Predicate<object> CanExecuteDelegate { get; set; }
+    //    public Action<object> ExecuteDelegate { get; set; }
 
-        public bool CanExecute(object parameter)
-        {
-            if (CanExecuteDelegate != null)
-                return CanExecuteDelegate(parameter);
-            return true; // if there is no can execute default to true
-        }
+    //    public bool CanExecute(object parameter)
+    //    {
+    //        if (CanExecuteDelegate != null)
+    //            return CanExecuteDelegate(parameter);
+    //        return true; // if there is no can execute default to true
+    //    }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+    //    public event EventHandler CanExecuteChanged
+    //    {
+    //        add { CommandManager.RequerySuggested += value; }
+    //        remove { CommandManager.RequerySuggested -= value; }
+    //    }
 
-        public void Execute(object parameter)
-        {
-            if (ExecuteDelegate != null)
-                ExecuteDelegate(parameter);
-        }
-    }
+    //    public void Execute(object parameter)
+    //    {
+    //        if (ExecuteDelegate != null)
+    //            ExecuteDelegate(parameter);
+    //    }
+    //}
 
-    public abstract class RelayCommandBase2<T> : ICommand, INotifyPropertyChanged
+    public abstract class RelayCommandBase<T> : ICommand, INotifyPropertyChanged
     {
         #region Fields & Properties
 
@@ -59,7 +59,7 @@ namespace Sramek.FX.WPF
 
         #endregion
 
-        protected RelayCommandBase2(Action<T> aExecute, Func<T, bool> aCanExecute = null)
+        protected RelayCommandBase(Action<T> aExecute, Func<T, bool> aCanExecute = null)
         {
             if (aExecute == null)
                 throw new ArgumentNullException("aExecute");
@@ -68,7 +68,7 @@ namespace Sramek.FX.WPF
             mCanExecute = aCanExecute;
         }
 
-        protected RelayCommandBase2(Func<T, Task> aExecute, Func<T, bool> aCanExecute = null)
+        protected RelayCommandBase(Func<T, Task> aExecute, Func<T, bool> aCanExecute = null)
         {
             if (aExecute == null)
                 throw new ArgumentNullException("aExecute");
@@ -156,7 +156,7 @@ namespace Sramek.FX.WPF
 
     }
 
-    public class RelayCommand : RelayCommandBase2<object>
+    public class RelayCommand : RelayCommandBase<object>
     {
         public RelayCommand(Action aExecute, Func<bool> aCanExecute = null)
             : base(a => aExecute(), aCanExecute == null ? null : new Func<object, bool>(a => aCanExecute()))
