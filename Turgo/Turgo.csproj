@@ -115,7 +115,9 @@
     <Compile Include="Controller\TurgoController.cs" />
     <Compile Include="Model\TurgoAppModel.cs" />
     <Compile Include="TurgoLoc.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\PdfGenerator.cs" />
     <Compile Include="ViewModel\PlayersViewModel.cs" />
     <Compile Include="ViewModel\RoundFactoryViewModel.cs" />
     <Compile Include="View\PlayersView.xaml.cs">
