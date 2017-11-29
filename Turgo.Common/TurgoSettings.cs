@@ -7,11 +7,11 @@ namespace Turgo.Common
     {
         public TurgoSettings()
         {
-            BaseClassConfiguration = new ClassConfiguration();
+            //BaseClassConfiguration = new ClassConfiguration();
             Model = new TurgoModel();
         }
 
-        public ClassConfiguration BaseClassConfiguration { get; set; }
+        //public ClassConfiguration BaseClassConfiguration { get; set; }
         public TurgoModel Model { get; set; }
     }
 }

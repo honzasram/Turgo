@@ -107,23 +107,23 @@ namespace Turgo.Test
         [TestMethod]
         public void CreateAndLoadConfiguration()
         {
-            var lModel = new TurgoSettings {BaseClassConfiguration = new ClassConfiguration {
-                UserBaseList = new List<User>
-                    {
-                        new User() {ID = 0, Name = "A", Surname = "a"}, 
-                        new User() {ID = 1, Name = "B", Surname = "b"}, 
-                        new User() {ID = 2, Name = "C", Surname = "c"}, 
-                    } 
-                },
-                Model = new TurgoModel()
-            };
-            lModel.Model.ClassList = new List<Class>();
-            lModel.Model.ClassList.Add(new Class()
-            {
-                Name = "CLASS", UserBase = lModel.BaseClassConfiguration.UserBaseList, Year = 2017
-            });
+            //var lModel = new TurgoSettings {BaseClassConfiguration = new ClassConfiguration {
+            //    UserBaseList = new List<User>
+            //        {
+            //            new User() {ID = 0, Name = "A", Surname = "a"}, 
+            //            new User() {ID = 1, Name = "B", Surname = "b"}, 
+            //            new User() {ID = 2, Name = "C", Surname = "c"}, 
+            //        } 
+            //    },
+            //    Model = new TurgoModel()
+            //};
+            //lModel.Model.ClassList = new List<Class>();
+            //lModel.Model.ClassList.Add(new Class()
+            //{
+            //    Name = "CLASS", UserBase = lModel.BaseClassConfiguration.UserBaseList, Year = 2017
+            //});
 
-            TurgoSettings.Save(lModel);
+            //TurgoSettings.Save(lModel);
 
             TurgoSettings.Load();
 

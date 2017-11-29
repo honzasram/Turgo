@@ -58,11 +58,17 @@ namespace Turgo.ViewModel
             }
         }
 
-        public ObservableCollection<User> SelectedUsers => new ObservableCollection<User>(TurgoSettings.I.BaseClassConfiguration.UserBaseList.Where(a=>a.IsSelected).ToList());
+        public ObservableCollection<User> SelectedUsers => new ObservableCollection<User>(TurgoSettings.I.Model.ClassList[0].UserBase.Where(a=>a.IsSelected).ToList());
 
         public ICommand PrintPDFCommand => new RelayCommand(() =>
             {
+                var lRound = RoundFactory.CreateRound(SelectedUsers.Select(a => a.ID).ToList(), TurgoSettings.I.Model.ClassList[0],
+                    DateTime.Now, CourtCount, "", "");
+
                 mLog.Info("Printing PDF...");
+
+                mLog.Info(lRound.Games.Select(a=>$"{a.SideA.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")} vs {a.SideB.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")}").Aggregate((a,b)=> $"{a} \n{b}"));
+
             }, 
             () =>
             {
@@ -74,10 +80,7 @@ namespace Turgo.ViewModel
         {
             PlayersCount = SelectedUsers.Count;
             CheckGeneratingCondition();
-            if (!CanGenerate)
-            {
-                throw new Exception(ErrorMessage);
-            }
+            
         }
 
         private void CheckGeneratingCondition()
@@ -87,6 +90,10 @@ namespace Turgo.ViewModel
                 CanGenerate = false;
                 ErrorMessage = "Not enough players";
                 return;
+            }
+            else
+            {
+                CanGenerate = true;
             }
         }
     }

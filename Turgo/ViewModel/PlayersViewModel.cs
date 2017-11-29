@@ -14,7 +14,6 @@ namespace Turgo.ViewModel
 {
     public class PlayersViewModel : BaseViewModel
     {
-
         private ObservableCollection<User> mPlayers;
         public ObservableCollection<User> Players
         {

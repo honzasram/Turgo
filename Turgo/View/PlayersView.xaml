@@ -18,12 +18,12 @@
                   HeadersVisibility="All"
                   RowHeaderWidth="20"
                   ItemsSource="{Binding Players}"
-                  SelectionUnit="FullRow" Grid.RowSpan="2">
+                  SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                        Header="{Binding SelectedForRound, Source={x:Static turgo:TurgoLoc.I}}" />
+                                        Header="{Binding SelectedForRound, Source={x:Static turgo:TurgoLoc.I}}"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="{Binding Name, Source={x:Static turgo:TurgoLoc.I}}" />
                 <DataGridTextColumn Binding="{Binding Surname}" Header="{Binding Surname, Source={x:Static turgo:TurgoLoc.I}}" />
             </DataGrid.Columns>
