@@ -1,6 +1,7 @@
 ﻿using Sramek.FX;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Turgo.Common;
 using Turgo.Common.Model;
@@ -9,7 +10,8 @@ namespace Turgo.Controller
 {
     public class TurgoController : Controller<TurgoController>
     {
-        
+        public ObservableCollection<User> SelectedPlayers { get; set; }
+
         public List<User> GetUserBase()
         {
             InternalLoad();

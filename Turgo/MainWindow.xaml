@@ -18,8 +18,8 @@
     
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Content="{Binding Players, Source={x:Static common:TurgoLoc.I}}" Command="{Binding ShowPlayersCommand}"/>
-            <Button Command="{Binding NewRoundCommand}">
+            <Button Content="{Binding Players, Source={x:Static common:TurgoLoc.I}}" Command="{Binding ShowTabCommand}" CommandParameter="Players"/>
+            <Button Command="{Binding ShowTabCommand}" CommandParameter="RoundFactory">
                 <Button.Content>
                     <TextBlock>
                         <TextBlock.Text>

@@ -120,11 +120,15 @@
     <Compile Include="ViewModel\PdfGenerator.cs" />
     <Compile Include="ViewModel\PlayersViewModel.cs" />
     <Compile Include="ViewModel\RoundFactoryViewModel.cs" />
+    <Compile Include="ViewModel\RoundViewModel.cs" />
     <Compile Include="View\PlayersView.xaml.cs">
       <DependentUpon>PlayersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RoundFactoryView.xaml.cs">
       <DependentUpon>RoundFactoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RoundView.xaml.cs">
+      <DependentUpon>RoundView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -143,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RoundFactoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RoundView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

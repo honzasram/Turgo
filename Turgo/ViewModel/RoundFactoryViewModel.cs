@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Sramek.FX.WPF;
 using Turgo.Common;
 using Turgo.Common.Model;
+using Turgo.Controller;
 
 namespace Turgo.ViewModel
 {
@@ -58,7 +59,7 @@ namespace Turgo.ViewModel
             }
         }
 
-        public ObservableCollection<User> SelectedUsers => new ObservableCollection<User>(TurgoSettings.I.Model.ClassList[0].UserBase.Where(a=>a.IsSelected).ToList());
+        public ObservableCollection<User> SelectedUsers => TurgoController.I.SelectedPlayers;
 
         public ICommand PrintPDFCommand => new RelayCommand(() =>
             {
@@ -68,33 +69,24 @@ namespace Turgo.ViewModel
                 mLog.Info("Printing PDF...");
 
                 mLog.Info(lRound.Games.Select(a=>$"{a.SideA.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")} vs {a.SideB.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")}").Aggregate((a,b)=> $"{a} \n{b}"));
-
-            }, 
-            () =>
-            {
-                CheckGeneratingCondition();
-                return CanGenerate;
-            });
+                
+            }, CheckGeneratingCondition);
 
         public RoundFactoryViewModel()
         {
             PlayersCount = SelectedUsers.Count;
             CheckGeneratingCondition();
-            
+            SelectedUsers.CollectionChanged += (a, b) => CheckGeneratingCondition();
         }
 
-        private void CheckGeneratingCondition()
+        private bool CheckGeneratingCondition()
         {
             if (PlayersCount < 8)
             {
-                CanGenerate = false;
                 ErrorMessage = "Not enough players";
-                return;
+                return false;
             }
-            else
-            {
-                CanGenerate = true;
-            }
+            return true;
         }
     }
 }

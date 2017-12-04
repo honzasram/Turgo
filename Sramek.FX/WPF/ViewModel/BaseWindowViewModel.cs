@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dragablz;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Sramek.FX.WPF.ViewModel
 {
@@ -29,6 +30,8 @@ namespace Sramek.FX.WPF.ViewModel
         }
 
         public IInterTabClient InterTabClient { get; }
+
+        public ICommand ShowTabCommand => new RelayCommand<string>(ShowTab);
 
         public BaseWindowViewModel()
         {

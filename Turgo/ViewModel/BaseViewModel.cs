@@ -4,7 +4,7 @@ using log4net;
 
 namespace Turgo.ViewModel
 {
-    public class BaseViewModel : HeaderedItemViewModel
+    public abstract class BaseViewModel : HeaderedItemViewModel
     {
         protected static ILog mLog = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
     }

@@ -163,4 +163,11 @@ namespace Sramek.FX.WPF
         {
         }
     }
+    public class RelayCommand<T> : RelayCommandBase<T>
+    {
+        public RelayCommand(Action<T> aExecute, Func<T, bool> aCanExecute = null)
+            : base(aExecute, aCanExecute == null ? null : new Func<T, bool>(a => aCanExecute(a)))
+        {
+        }
+    }
 }

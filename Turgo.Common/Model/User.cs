@@ -1,11 +1,13 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel;
+using System.Xml.Serialization;
+using Sramek.FX;
 
 namespace Turgo.Common.Model
 {
     /// <summary>
     /// player
     /// </summary>
-    public class User : ISelectable, IChangeable
+    public class User : ObservableObject,ISelectable, IChangeable
     {
         [XmlAttribute]
         public string Name { get; set; }
@@ -15,7 +17,18 @@ namespace Turgo.Common.Model
         public uint ID { get; set; }
 
         [XmlIgnore]
-        public bool IsSelected { get; set; }
+        private bool mIsSelected;
+        [XmlIgnore]
+        public bool IsSelected
+        {
+            get { return mIsSelected; }
+            set
+            {
+                if (mIsSelected == value) return;
+                mIsSelected = value;
+                OnPropertyChanged();
+            }
+        }
         [XmlIgnore]
         public bool IsChanged { get; set; }
     }

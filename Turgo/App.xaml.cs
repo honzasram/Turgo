@@ -20,7 +20,7 @@ namespace Turgo
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
@@ -78,8 +78,5 @@ namespace Turgo
             lHier.Configured = true;
             BasicConfigurator.Configure(lHier);
         }
-
-        
     }
-
 }
