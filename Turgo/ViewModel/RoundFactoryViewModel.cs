@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Sramek.FX.WPF;
+using Sramek.FX.WPF.ViewModel;
 using Turgo.Common;
 using Turgo.Common.Model;
 using Turgo.Controller;
@@ -70,6 +71,8 @@ namespace Turgo.ViewModel
 
                 mLog.Info(lRound.Games.Select(a=>$"{a.SideA.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")} vs {a.SideB.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")}").Aggregate((a,b)=> $"{a} \n{b}"));
                 
+                BaseWindowViewModel.I.ShowTab("Round", new RoundViewModel(lRound));
+                Close(this);
             }, CheckGeneratingCondition);
 
         public RoundFactoryViewModel()

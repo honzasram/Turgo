@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turgo.Test", "Turgo.Test\Tu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Turgo", "Turgo\Turgo.csproj", "{3A992254-4C24-4B06-9D13-0478D5C6D2B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurgoLigth", "TurgoLigth\TurgoLigth.csproj", "{AE9047D2-797D-498A-8473-C0F626965EF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A992254-4C24-4B06-9D13-0478D5C6D2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE9047D2-797D-498A-8473-C0F626965EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE9047D2-797D-498A-8473-C0F626965EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE9047D2-797D-498A-8473-C0F626965EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE9047D2-797D-498A-8473-C0F626965EF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

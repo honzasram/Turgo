@@ -7,9 +7,9 @@ namespace Turgo.ViewModel
     {
         public MainWindowViewModel()
         {
-            mFactoryFuncDictionary.Add("Players", () => new TabContent(TurgoLoc.I.Players, new PlayersView()));
-            mFactoryFuncDictionary.Add("RoundFactory", () => new TabContent(TurgoLoc.I.Round, new RoundFactoryView()));
-            mFactoryFuncDictionary.Add("Round", () => new TabContent(TurgoLoc.I.Round, new RoundFactoryView()));
+            mFactoryFuncDictionary.Add("Players", a => new TabContent(TurgoLoc.I.Players, new PlayersView()));
+            mFactoryFuncDictionary.Add("RoundFactory", a => new TabContent(TurgoLoc.I.Round, new RoundFactoryView()));
+            mFactoryFuncDictionary.Add("Round", a => new TabContent(TurgoLoc.I.Round, new RoundView((RoundViewModel)a)));
             if(mInstanceCount == 0) ShowTab("Players");
             mInstanceCount++;
         }
