@@ -52,6 +52,9 @@ namespace Turgo
         [Default("Count")]
         public string Count { get; set; }
 
+        [Default("New Set")]
+        public string NewSet { get; set; }
+
         public TurgoLoc()
         {
             Load();

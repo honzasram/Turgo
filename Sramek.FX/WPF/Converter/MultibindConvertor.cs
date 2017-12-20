@@ -9,7 +9,14 @@ namespace Sramek.FX.WPF.Converter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return values.Select(a=>(string) a).Aggregate((a,b)=>$"{a} {b}");
+            try
+            {
+                return values.Select(a => (string) a).Aggregate((a, b) => $"{a} {b}");
+            }
+            catch (Exception)
+            {
+                return "ERR";
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

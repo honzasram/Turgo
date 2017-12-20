@@ -116,11 +116,13 @@
     <Compile Include="Model\TurgoAppModel.cs" />
     <Compile Include="TurgoLoc.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\GameViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PdfGenerator.cs" />
     <Compile Include="ViewModel\PlayersViewModel.cs" />
     <Compile Include="ViewModel\RoundFactoryViewModel.cs" />
     <Compile Include="ViewModel\RoundViewModel.cs" />
+    <Compile Include="ViewModel\StandartViewModel.cs" />
     <Compile Include="View\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>

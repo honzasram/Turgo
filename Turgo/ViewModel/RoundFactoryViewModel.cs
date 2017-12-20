@@ -10,7 +10,7 @@ using Turgo.Controller;
 
 namespace Turgo.ViewModel
 {
-    public class RoundFactoryViewModel : BaseViewModel
+    public class RoundFactoryViewModel : StandartViewModel
     {
         private int mPlayersCount;
         public int PlayersCount

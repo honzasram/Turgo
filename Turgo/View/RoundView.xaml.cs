@@ -1,4 +1,7 @@
-﻿using Turgo.ViewModel;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using Turgo.ViewModel;
 
 namespace Turgo.View
 {
@@ -12,6 +15,27 @@ namespace Turgo.View
         {
             InitializeComponent();
             DataContext = aVm;
+            PrepareView();
+        }
+
+        private void PrepareView()
+        {
+            var lCourtCount = VM.Round.CourtCount;
+            PrepareGrid(lCourtCount);
+
+            for (int i = 0; i < lCourtCount; i++)
+            {
+                var lGameView = new GameView {DataContext = new Binding($"GameViewModelList[{i}]") };
+                
+                GameViews.Children.Add(lGameView);
+                Grid.SetRow(lGameView, i);
+            }
+        }
+
+        private void PrepareGrid(int aRows)
+        {
+            for (int i = 0; i < aRows; i++)
+                GameViews.RowDefinitions.Add(new RowDefinition {Height = new GridLength(1, GridUnitType.Star)});
         }
     }
 }

@@ -8,7 +8,7 @@ using Turgo.Controller;
 
 namespace Turgo.ViewModel
 {
-    public class PlayersViewModel : BaseViewModel
+    public class PlayersViewModel : StandartViewModel
     {
         private FullyObservableCollection<User> mPlayers;
         public FullyObservableCollection<User> Players
