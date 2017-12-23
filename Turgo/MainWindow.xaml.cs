@@ -37,7 +37,7 @@ namespace Turgo
         
         private async void DialogsBeforeExit()
         {
-            MessageDialogResult result = await this.ShowMessageAsync(this.Title, "Do You really want to exit?", MessageDialogStyle.AffirmativeAndNegative);
+            MessageDialogResult result = await this.ShowMessageAsync(this.Title, "Opravdu chcete zavřít tutop aplikaci?", MessageDialogStyle.AffirmativeAndNegative);
             if (result == MessageDialogResult.Negative)
             {
                 return;

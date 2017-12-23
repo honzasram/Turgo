@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -15,7 +11,7 @@ using log4net.Repository.Hierarchy;
 using log4net.Util;
 using Turgo.Common;
 using Turgo.Common.Model;
-
+using Sramek.FX;
 namespace Turgo
 {
     /// <summary>
@@ -23,6 +19,7 @@ namespace Turgo
     /// </summary>
     public partial class App
     {
+        private static ILog mLog = LogManager.GetLogger(typeof(App));
         public App()
         {
             ConsoleSetup(true);
@@ -39,6 +36,27 @@ namespace Turgo
                 TurgoSettings.Save(TurgoSettings.I);
             }
             TurgoLoc.I.SetLanguage("cs");
+            CleanupLog();
+        }
+
+        private static void CleanupLog()
+        {
+            var lPath = Path.GetDirectoryName( System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var lLogFiles = Directory.GetFiles(lPath);
+            
+
+            try
+            {
+                foreach (var iDelete in lLogFiles.Where(a => a.StartsWith($"{lPath}\\Log.txt.")).ToList())
+                {
+                    File.Delete(iDelete);
+                }
+            }
+            catch (Exception e)
+            {
+                mLog.Error(Messages.BuildErrorMessage(e));
+            }
+
         }
 
         private static void ConsoleSetup(bool aFile)

@@ -79,7 +79,15 @@ namespace Sramek.FX.WPF
         {
             foreach (var iProperty in mPropertiesCache)
             {
-                iProperty.SetValue(this, mSelectedLanguageDictionary[iProperty.Name]);
+                try
+                {
+                    iProperty.SetValue(this, mSelectedLanguageDictionary[iProperty.Name]);
+                }
+                catch (Exception e)
+                {
+                    mLog.Info(iProperty.Name);
+                    mLog.Error(Messages.BuildErrorMessage(e));
+                }
             }
         }
 
@@ -242,6 +250,7 @@ namespace Sramek.FX.WPF
                 }
 
                 // update file
+                lNeedUpdate = false;
                 if (lNeedUpdate)
                 {
                     try
