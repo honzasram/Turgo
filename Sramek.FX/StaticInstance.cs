@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sramek.FX
 {
-    public abstract class Controller<T>
+    public abstract class StaticInstance<T>
         where T : new()
     {
-        public static T I { get; } = new T();
+        public static T I { get; protected set; } = new T();
     }
+   
 }

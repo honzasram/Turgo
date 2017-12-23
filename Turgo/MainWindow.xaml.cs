@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using MahApps.Metro.Controls.Dialogs;
+using Sramek.FX.WPF;
 
 namespace Turgo
 {
@@ -15,6 +16,10 @@ namespace Turgo
         public MainWindow()
         {
             InitializeComponent();
+            if (mInstances == 0)
+            {
+                new StandardMetroViewService(this);
+            }
             mInstances++;
         }
 

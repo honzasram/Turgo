@@ -25,7 +25,8 @@ namespace Turgo.View
 
             for (int i = 0; i < lCourtCount; i++)
             {
-                var lGameView = new GameView {DataContext = new Binding($"GameViewModelList[{i}]") };
+                var lGameView = new GameView();
+                lGameView.SetBinding(DataContextProperty, new Binding($"GameViewModelList[{i}]"));
                 
                 GameViews.Children.Add(lGameView);
                 Grid.SetRow(lGameView, i);

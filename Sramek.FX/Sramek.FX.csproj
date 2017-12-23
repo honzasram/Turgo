@@ -38,10 +38,18 @@
       <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
-    <Compile Include="Controller.cs" />
+    <Compile Include="StaticInstance.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Settings.cs" />
@@ -62,6 +70,7 @@
     <Compile Include="WPF\SimpleCommand.cs" />
     <Compile Include="WPF\ViewModel\BaseWindowViewModel.cs" />
     <Compile Include="WPF\ViewModel\TabContent.cs" />
+    <Compile Include="WPF\ViewService.cs" />
     <Compile Include="XMLConfig.cs" />
   </ItemGroup>
   <ItemGroup>

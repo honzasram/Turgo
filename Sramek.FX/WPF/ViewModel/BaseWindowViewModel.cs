@@ -58,6 +58,8 @@ namespace Sramek.FX.WPF.ViewModel
         public void ShowTab(string aKey, object aPassingObject = null)
         {
             var lContent = CreateContent(aKey, aPassingObject);
+            if (lContent == null) return;
+
             TabContents.Add(lContent);
             SelectedTab = lContent;
         }

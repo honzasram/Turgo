@@ -62,15 +62,10 @@ namespace Turgo.ViewModel
 
         public ObservableCollection<User> SelectedUsers => TurgoController.I.SelectedPlayers;
 
-        public ICommand PrintPDFCommand => new RelayCommand(() =>
+        public ICommand OpenRoundCommand => new RelayCommand(() =>
             {
                 var lRound = RoundFactory.CreateRound(SelectedUsers.Select(a => a.ID).ToList(), TurgoSettings.I.Model.ClassList[0],
                     DateTime.Now, CourtCount, "", "");
-
-                mLog.Info("Printing PDF...");
-
-                mLog.Info(lRound.Games.Select(a=>$"{a.SideA.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")} vs {a.SideB.Select(b=>b.ID).Aggregate("",(c,d)=> $"{c}+{d}")}").Aggregate((a,b)=> $"{a} \n{b}"));
-                
                 BaseWindowViewModel.I.ShowTab("Round", new RoundViewModel(lRound));
                 Close(this);
             }, CheckGeneratingCondition);
@@ -78,6 +73,12 @@ namespace Turgo.ViewModel
         public RoundFactoryViewModel()
         {
             PlayersCount = SelectedUsers.Count;
+            if (PlayersCount < 8)
+            {
+                StandardMetroViewService.I.Message("Málo hráčů", "Vyberte alespoň osm hráču.");
+                throw new Exception("Under 8 players! need more...");
+            }
+
             CheckGeneratingCondition();
             SelectedUsers.CollectionChanged += (a, b) => CheckGeneratingCondition();
         }

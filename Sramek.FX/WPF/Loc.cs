@@ -37,6 +37,7 @@ namespace Sramek.FX.WPF
         {
             GetProperties();
             CreateDefault();
+            SetLanguage(null);
         }
 
         private void GetProperties()

@@ -15,7 +15,7 @@ namespace Sramek.FX.WPF.Converter
             }
             catch (Exception)
             {
-                return "ERR";
+                return "";
             }
         }
 

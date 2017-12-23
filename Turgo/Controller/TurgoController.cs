@@ -1,5 +1,4 @@
 ﻿using Sramek.FX;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,15 +7,25 @@ using Turgo.Common.Model;
 
 namespace Turgo.Controller
 {
-    public class TurgoController : Controller<TurgoController>
+    public class TurgoController : StaticInstance<TurgoController>
     {
         public ObservableCollection<User> SelectedPlayers { get; set; }
 
         public List<User> GetUserBase()
         {
             InternalLoad();
-
             return TurgoSettings.I.Model.ClassList[0].UserBase;
+        }
+
+        public void SaveRound(Round aRound)
+        {
+            TurgoSettings.I.Model.ClassList[0].Rounds.Add(aRound);
+            TurgoSettings.Save(TurgoSettings.I);
+        }
+
+        public List<Round> GetAllRounds()
+        {
+            return TurgoSettings.I.Model.ClassList[0].Rounds.ToList();
         }
 
         public void UpdateUserBase(List<User> aUsers)

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converter="clr-namespace:Sramek.FX.WPF.Converter;assembly=Sramek.FX"
-             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:common="clr-namespace:Turgo"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -34,10 +33,21 @@
                     <MultiBinding Converter="{StaticResource MultibindConvertor}">
                         <MultiBinding.Bindings>
                             <Binding Path="A1"/>
-                            <Binding Path="A1"/>
+                            <Binding Path="A2"/>
                         </MultiBinding.Bindings>
                     </MultiBinding>
                 </TextBlock.Text>
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Game.Result.ASideWon}" Value="true">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Background" Value="Chartreuse" />
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
             </TextBlock>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontSize="24" Grid.Column="2">
                 <TextBlock.Text>
@@ -48,12 +58,32 @@
                         </MultiBinding.Bindings>
                     </MultiBinding>
                 </TextBlock.Text>
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Game.Result.BSideWon}" Value="true">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Background" Value="Chartreuse" />
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
             </TextBlock>
 
+            <Button Command="{Binding WonCommand}" CommandParameter="A" Content="{Binding Won, Source={x:Static common:TurgoLoc.I}}" Grid.Row="1" Grid.Column="0"/>
+            <Button Command="{Binding WonCommand}" CommandParameter="B"  Content="{Binding Won, Source={x:Static common:TurgoLoc.I}}"  Grid.Row="1" Grid.Column="2"/>
 
-            <metro:NumericUpDown Value="{Binding SideAValue}" Grid.Row="1" Grid.Column="0" />
-            <metro:NumericUpDown Value="{Binding SideBValue}"  Grid.Row="1" Grid.Column="2"/>
+            <!--<metro:NumericUpDown Value="{Binding SideAValue}" Minimum="0" Grid.Row="1" Grid.Column="0" />
+            <metro:NumericUpDown Value="{Binding SideBValue}" Minimum="0"     Grid.Row="1" Grid.Column="2"/>-->
         </Grid>
-        <Button Grid.Row="1" Command="{Binding NewSetCommand}" Content="{Binding NewSet, Source={x:Static common:TurgoLoc.I}}"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!--<ColumnDefinition Width="*"/>-->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Button Command="{Binding NewSetCommand}" Content="{Binding NewSet, Source={x:Static common:TurgoLoc.I}}"/>-->
+            <Button Grid.Column="1" Command="{Binding EndGameCommand}" Content="{Binding EndGame, Source={x:Static common:TurgoLoc.I}}"/>
+        </Grid>
     </Grid>
 </UserControl>

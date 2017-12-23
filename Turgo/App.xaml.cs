@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +25,7 @@ namespace Turgo
     {
         public App()
         {
-            ConsoleSetup(false);
+            ConsoleSetup(true);
             TurgoSettings.Load();
             if (TurgoSettings.I.Model.ClassList == null)
             {
@@ -37,6 +38,7 @@ namespace Turgo
                 TurgoSettings.I.Model.ClassList.Add(lClass);
                 TurgoSettings.Save(TurgoSettings.I);
             }
+            TurgoLoc.I.SetLanguage("cs");
         }
 
         private static void ConsoleSetup(bool aFile)

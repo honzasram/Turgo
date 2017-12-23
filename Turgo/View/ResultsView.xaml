@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Turgo.View.ResultsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:turgo="clr-namespace:Turgo"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding RoundResultList}" DisplayMemberPath="Item2" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Command="{Binding ShowTotalResultsCommnad}" Content="{Binding TotalResults, Source={x:Static turgo:TurgoLoc.I}}" />
+            <Button Command="{Binding ExportCommand}" Content="{Binding Export, Source={x:Static turgo:TurgoLoc.I}}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -28,6 +28,15 @@ namespace Turgo
         [Default("Name")]
         public string Name { get; set; }
 
+        [Default("Result")]
+        public string Result { get; set; }
+
+        [Default("Export")]
+        public string Export { get; set; }
+
+        [Default("Total Results")]
+        public string TotalResults { get; set; }
+
         [Default("Surame")]
         public string Surname { get; set; }
 
@@ -46,6 +55,9 @@ namespace Turgo
         [Default("Print")]
         public string Print { get; set; }
 
+        [Default("Open")]
+        public string Open { get; set; }
+
         [Default("PDF")]
         public string PDF { get; set; }
 
@@ -54,6 +66,21 @@ namespace Turgo
 
         [Default("New Set")]
         public string NewSet { get; set; }
+
+        [Default("End Game")]
+        public string EndGame { get; set; }
+
+        [Default("End Round")]
+        public string EndRound { get; set; }
+
+        [Default("Won")]
+        public string Won { get; set; }
+
+        [Default("Start")]
+        public string Start { get; set; }
+
+        [Default("Court Count")]
+        public string CourtCount { get; set; }
 
         public TurgoLoc()
         {

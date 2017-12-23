@@ -62,7 +62,7 @@ namespace Sramek.FX
         {
             ObserveAll();
         }
-
+        
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Remove ||
