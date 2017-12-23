@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Turgo.Common")]
+[assembly: AssemblyTitle("Turgo.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Turgo.Common")]
+[assembly: AssemblyProduct("Turgo.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,9 +20,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("34015c4b-2771-403c-8a52-70479ab6d2e9")]
+[assembly: Guid("00ddfcbb-0a87-4220-bd73-368d72d5ec1d")]
 
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Config\\log4net.xml", Watch = true)]
 
 // Version information for an assembly consists of the following four values:
 //
