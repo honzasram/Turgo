@@ -126,6 +126,17 @@ namespace Turgo.Test
             //TurgoSettings.Save(lModel);
 
             TurgoSettings.Load();
+            if (TurgoSettings.I.Model.ClassList == null)
+            {
+                var lClassList = new List<Class>();
+                TurgoSettings.I.Model.ClassList = lClassList;
+            }
+            if (!TurgoSettings.I.Model.ClassList.Any())
+            {
+                var lClass = new Class { Name = "Default", Year = DateTime.Now.Year };
+                TurgoSettings.I.Model.ClassList.Add(lClass);
+                TurgoSettings.Save(TurgoSettings.I);
+            }
 
             Console.Write(TurgoSettings.I.Model.ClassList[0].Name);
         }
