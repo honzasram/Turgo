@@ -78,7 +78,7 @@
             </DataGrid.RowStyle>
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="{Binding Load, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding LoadPlayersCommand}" />
+            <!--<Button Content="{Binding Load, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding LoadPlayersCommand}" />-->
             <Button Content="{Binding Save, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding SavePlayersCommand}" />
         </StackPanel>
     </Grid>

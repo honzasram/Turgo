@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding RoundResultList}" DisplayMemberPath="Item2" />
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Command="{Binding ExportCommand}" Content="{Binding Export, Source={x:Static turgo:TurgoLoc.I}}" />
         </StackPanel>
     </Grid>
