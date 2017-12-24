@@ -22,6 +22,11 @@ namespace Turgo
         private static ILog mLog = LogManager.GetLogger(typeof(App));
         public App()
         {
+#if DEBUG
+#else
+            ConsoleHelper.Close();
+#endif
+
             ConsoleSetup(true);
             TurgoSettings.Load();
             if (TurgoSettings.I.Model.ClassList == null)
