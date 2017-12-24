@@ -1,0 +1,1 @@
+base.vbs "%userprofile%\Desktop\Turgo.lnk" %1 Turgo.exe
