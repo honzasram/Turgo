@@ -23,19 +23,48 @@ namespace Turgo.ViewModel
             }
         }
 
+        private bool mUserBaseSelected;
+        public bool UserBaseSelected
+        {
+            get { return mUserBaseSelected; }
+            set
+            {
+                if (mUserBaseSelected == value) return;
+                mUserBaseSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand LoadPlayersCommand => new RelayCommand(LoadPlayers);
 
-        public ICommand SavePlayersCommand => new RelayCommand(() => { TurgoController.I.UpdateUserBase(Players.ToList());});
+        public ICommand SavePlayersCommand => new RelayCommand(() =>
+        {
+            if (UserBaseSelected)
+            {
+                TurgoController.I.UpdateStandardUserBase(Players.ToList());
+            }
+            else
+                TurgoController.I.UpdateUserBase(Players.ToList());
+            TurgoController.I.SelectedPlayers = null;
+            LoadPlayers();
+        });
         
+        public ICommand UserBaseCommand => new RelayCommand(LoadPlayers);
+
         public PlayersViewModel()
         {
             LoadPlayers();
-            Players.ItemPropertyChanged += (a, b) => UpdateSelected();
         }
 
         private void LoadPlayers()
         {
-            Players = new FullyObservableCollection<User>(TurgoController.I.GetUserBase());
+            if (UserBaseSelected)
+            {
+                Players = new FullyObservableCollection<User>(TurgoController.I.GetStandardUserBase());
+            }
+            else
+                Players = new FullyObservableCollection<User>(TurgoController.I.GetUserBase());
+            Players.ItemPropertyChanged += (a, b) => UpdateSelected();
         }
 
         private void UpdateSelected()

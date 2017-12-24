@@ -18,6 +18,7 @@
     
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
+            <Button Content="{Binding Classes, Source={x:Static common:TurgoLoc.I}}" Command="{Binding ShowTabCommand}" CommandParameter="Classes"/>
             <Button Content="{Binding Players, Source={x:Static common:TurgoLoc.I}}" Command="{Binding ShowTabCommand}" CommandParameter="Players"/>
             <Button Content="{Binding TotalResults, Source={x:Static common:TurgoLoc.I}}" Command="{Binding ShowTabCommand}" CommandParameter="TotalResult"/>
             <Button Command="{Binding ShowTabCommand}" CommandParameter="RoundFactory">

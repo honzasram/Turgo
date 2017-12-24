@@ -85,7 +85,7 @@ namespace Turgo.ViewModel
             foreach (var iUser in mResultDict.Keys)
             {
                 var lCount = mResultDict[iUser];
-                lList.Add(new Tuple<User, uint>(lBaseUserList.First(a=>a.ID == iUser), lCount));
+                lList.Add(new Tuple<User, uint>(lBaseUserList.First(a => a.ID == iUser), lCount));
             }
             RoundResultList = new ObservableCollection<Tuple<User, string>>(
                 lList.OrderByDescending(a => a.Item2)

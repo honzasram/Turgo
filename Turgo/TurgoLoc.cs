@@ -82,6 +82,21 @@ namespace Turgo
         [Default("Court Count")]
         public string CourtCount { get; set; }
 
+        [Default("Select Class")]
+        public string SelectClass { get; set; }
+
+        [Default("Finish Class")]
+        public string EndClass { get; set; }
+
+        [Default("New Class")]
+        public string NewClass { get; set; }
+
+        [Default("Classes")]
+        public string Classes { get; set; }
+
+        [Default("User Base")]
+        public string UserBase { get; set; }
+
         public TurgoLoc()
         {
             Load();

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Sramek.FX;
 using Sramek.FX.WPF;
 using Sramek.FX.WPF.ViewModel;
 using Turgo.Common;
@@ -63,12 +64,39 @@ namespace Turgo.ViewModel
         public ObservableCollection<User> SelectedUsers => TurgoController.I.SelectedPlayers;
 
         public ICommand OpenRoundCommand => new RelayCommand(() =>
+        {
+            Round lRound = null;
+            try
             {
-                var lRound = RoundFactory.CreateRound(SelectedUsers.Select(a => a.ID).ToList(), TurgoSettings.I.Model.ClassList[0],
-                    DateTime.Now, CourtCount, "", "");
-                BaseWindowViewModel.I.ShowTab("Round", new RoundViewModel(lRound));
-                Close(this);
-            }, CheckGeneratingCondition);
+                lRound = RoundFactory.CreateRound(
+                    SelectedUsers.Select(a => a.ID).ToList(),
+                    TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
+                    DateTime.Now, CourtCount,
+                    "",
+                    "");
+            }
+            catch (NowEvenCountException)
+            {
+                var lUneven = StandardMetroViewService.I.OkCancelQuestion("Pozor", "Tento počet kurtů a hráčů nelze kombinovat. Jeden hráč bude v nevýhodě a bude mít o kolo méně. Checte přesto pokračovat?");
+                if (lUneven)
+                {
+                    lRound = RoundFactory.CreateRound(
+                        SelectedUsers.Select(a => a.ID).ToList(),
+                        TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
+                        DateTime.Now, CourtCount,
+                        "",
+                        "", true);
+                }
+            }
+            catch (Exception e)
+            {
+                mLog.Error(Messages.BuildErrorMessage(e));
+                return;
+            }
+
+            BaseWindowViewModel.I.ShowTab("Round", new RoundViewModel(lRound));
+            Close(this);
+        }, CheckGeneratingCondition);
 
         public RoundFactoryViewModel()
         {

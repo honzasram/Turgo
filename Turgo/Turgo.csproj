@@ -82,6 +82,7 @@
     <Compile Include="Model\TurgoAppModel.cs" />
     <Compile Include="TurgoLoc.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ClassViewModel.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PdfGenerator.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="ViewModel\RoundFactoryViewModel.cs" />
     <Compile Include="ViewModel\RoundViewModel.cs" />
     <Compile Include="ViewModel\StandartViewModel.cs" />
+    <Compile Include="View\ClassView.xaml.cs">
+      <DependentUpon>ClassView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
@@ -120,6 +124,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ClassView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\GameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

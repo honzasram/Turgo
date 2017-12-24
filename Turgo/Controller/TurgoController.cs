@@ -14,23 +14,50 @@ namespace Turgo.Controller
         public List<User> GetUserBase()
         {
             InternalLoad();
-            return TurgoSettings.I.Model.ClassList[0].UserBase;
+            var lSelectedClass = TurgoSettings.I.SelectedClassIndex;
+            return TurgoSettings.I.Model.ClassList[lSelectedClass].UserBase;
+        }
+
+        public List<User> GetStandardUserBase()
+        {
+            InternalLoad();
+            return TurgoSettings.I.UserBaseList;
         }
 
         public void SaveRound(Round aRound)
         {
-            TurgoSettings.I.Model.ClassList[0].Rounds.Add(aRound);
+            var lSelectedClass = TurgoSettings.I.SelectedClassIndex;
+
+            TurgoSettings.I.Model.ClassList[lSelectedClass].Rounds.Add(aRound);
             TurgoSettings.Save(TurgoSettings.I);
         }
 
         public List<Round> GetAllRounds()
         {
-            return TurgoSettings.I.Model.ClassList[0].Rounds.ToList();
+            var lSelectedClass = TurgoSettings.I.SelectedClassIndex;
+
+            return TurgoSettings.I.Model.ClassList[lSelectedClass].Rounds.ToList();
         }
 
         public void UpdateUserBase(List<User> aUsers)
         {
-            TurgoSettings.I.Model.ClassList[0].UserBase = aUsers;
+            var lSelectedClass = TurgoSettings.I.SelectedClassIndex;
+
+            TurgoSettings.I.Model.ClassList[lSelectedClass].UserBase = aUsers;
+            foreach (var iUser in aUsers)
+            {
+                if (iUser.ID == 0)
+                {
+                    iUser.ID = aUsers.Max(a => a.ID) + 1;
+                }
+            }
+            TurgoSettings.Save(TurgoSettings.I);
+            TurgoSettings.Load();
+        }
+
+        public void UpdateStandardUserBase(List<User> aUsers)
+        {
+            TurgoSettings.I.UserBaseList = aUsers;
             foreach (var iUser in aUsers)
             {
                 if (iUser.ID == 0)
@@ -47,6 +74,33 @@ namespace Turgo.Controller
             {
                 TurgoSettings.Load();
             }
+        }
+    }
+
+    public class TurgoSettingsController : StaticInstance<TurgoSettingsController>
+    {
+        public List<Class> GetAllClasses()
+        {
+            return TurgoSettings.I.Model.ClassList;
+        }
+
+        public void SaveModel()
+        {
+            TurgoSettings.Save(TurgoSettings.I);
+        }
+
+        public void SelectClass(Class aSelectedItem)
+        {
+            var lIndex = TurgoSettings.I.Model.ClassList.FindIndex(a=>a == aSelectedItem);
+            TurgoSettings.I.SelectedClassIndex = lIndex;
+            TurgoSettings.Save(TurgoSettings.I);
+        }
+        
+        public void CreateNew(string aName, int aYear, bool aStandartBase)
+        {
+            ClassManager.CreateClass(TurgoSettings.I.Model, aStandartBase?TurgoSettings.I.UserBaseList:new List<User>(), aName, aYear);
+            TurgoSettings.Save(TurgoSettings.I);
+            TurgoSettings.Load();
         }
     }
 }

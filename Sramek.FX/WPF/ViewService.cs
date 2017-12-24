@@ -14,7 +14,7 @@ namespace Sramek.FX.WPF
         void Message(string aHeader, string aMessage);
         T Execute<T>(Func<T> aAction);
         bool SaveFileDialog(out string aPath, string aExt, string aFilter);
-
+        string UserInputDialog(string aHeader, string aText);
     }
     
     public class StandardMetroViewService : StaticInstance<StandardMetroViewService>, IViewService
@@ -65,6 +65,11 @@ namespace Sramek.FX.WPF
                 return true;
             }
             return false;
+        }
+
+        public string UserInputDialog(string aHeader, string aText)
+        {
+            return mWindow.ShowModalInputExternal(aHeader, aText, new MetroDialogSettings {AnimateHide = false});
         }
 
         private static Dispatcher GetUIDispatcher(Window aWindow)

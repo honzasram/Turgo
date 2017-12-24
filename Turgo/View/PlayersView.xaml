@@ -79,6 +79,7 @@
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <!--<Button Content="{Binding Load, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding LoadPlayersCommand}" />-->
+            <CheckBox Content="{Binding UserBase, Source={x:Static turgo:TurgoLoc.I}}" IsChecked="{Binding UserBaseSelected}" Command="{Binding UserBaseCommand}" />
             <Button Content="{Binding Save, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding SavePlayersCommand}" />
         </StackPanel>
     </Grid>

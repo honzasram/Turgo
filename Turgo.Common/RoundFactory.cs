@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Turgo.Common.Model;
 
 namespace Turgo.Common
@@ -9,7 +10,7 @@ namespace Turgo.Common
     {
         private static readonly Random mRandom = new Random((int)(DateTime.Now.Ticks / 5));
 
-        public static Round CreateRound(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts, string aDescribtion, string aPlace)
+        public static Round CreateRound(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts, string aDescribtion, string aPlace, bool aIgnoreNotEvenDistribution = false)
         {
             var lAttendingPlayers = aClass.UserBase.Where(a => aUsers.Contains(a.ID)).ToList();
             var lPairs = new List<Tuple<uint, uint>>();
@@ -28,7 +29,7 @@ namespace Turgo.Common
                 else
                     lPairs.Add(new Tuple<uint, uint>(lB, lA));
             }
-            var lGames = CreateGames(lPairs);
+            var lGames = CreateGames(lPairs, aIgnoreNotEvenDistribution);
             var lRound = new Round
             {
                 AttentedPlayers = lAttendingPlayers,
@@ -55,13 +56,18 @@ namespace Turgo.Common
             return lRound;
         }
 
-        private static List<Tuple<Tuple<uint, uint>, Tuple<uint, uint>>> CreateGames(List<Tuple<uint, uint>> aPairs)
+        private static List<Tuple<Tuple<uint, uint>, Tuple<uint, uint>>> CreateGames(List<Tuple<uint, uint>> aPairs, bool aIgnoreNotEvenDistribution)
         {
             var lGames = new List<Tuple<Tuple<uint, uint>, Tuple<uint, uint>>>();
             int aLimit = 0;
             var lPairs = aPairs.ToList();
             while (lPairs.Any())
             {
+                if (lPairs.Count == 1)
+                {
+                    if (aIgnoreNotEvenDistribution) return lGames;
+                    throw new NowEvenCountException();
+                }
                 var lPair = lPairs[0];
                 var lPair2 = lPairs[1];
                 var lTries = 0;
@@ -72,7 +78,7 @@ namespace Turgo.Common
                     lPair2 = lPairs[lTries+1];
                     if (aLimit > 50)
                     {
-                        return CreateGames(aPairs);
+                        return CreateGames(aPairs,aIgnoreNotEvenDistribution);
                     }
                 }
 
@@ -94,6 +100,26 @@ namespace Turgo.Common
             var lLast = aDict.Where(a => a.Value == aDict.Min(b => b.Value)).Select(a => a.Key).ToArray();
             var lRand = lLast[aRandom.Next(lLast.Length)];
             return lRand;
+        }
+    }
+
+
+    public class NowEvenCountException : Exception
+    {
+        public NowEvenCountException()
+        {
+        }
+
+        public NowEvenCountException(string message) : base(message)
+        {
+        }
+
+        public NowEvenCountException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        protected NowEvenCountException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }

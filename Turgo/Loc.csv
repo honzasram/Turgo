@@ -25,3 +25,8 @@ EndRound;End Round;Konec Kola
 Won;Won;Vyhráli
 Start;Start;Start
 CourtCount;Court Count;Počet kurtů
+SelectClass;Select Class;Vybrat třidu
+EndClass;Finish Class;Ukončit třídu
+NewClass;New Class;Nová třída
+Classes;Classes;Třídy
+UserBase;User Base;Standartní seznam
