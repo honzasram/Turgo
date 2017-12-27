@@ -33,6 +33,7 @@
                     <MultiBinding Converter="{StaticResource MultibindConvertor}">
                         <MultiBinding.Bindings>
                             <Binding Path="A1"/>
+                            <Binding Path="Slash"/>
                             <Binding Path="A2"/>
                         </MultiBinding.Bindings>
                     </MultiBinding>
@@ -54,6 +55,7 @@
                     <MultiBinding Converter="{StaticResource MultibindConvertor}">
                         <MultiBinding.Bindings>
                             <Binding Path="B1"/>
+                            <Binding Path="Slash"/>
                             <Binding Path="B2"/>
                         </MultiBinding.Bindings>
                     </MultiBinding>

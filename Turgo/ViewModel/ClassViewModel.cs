@@ -36,6 +36,7 @@ namespace Turgo.ViewModel
         public ICommand SelectClassCommand => new RelayCommand(() =>
         {
             TurgoSettingsController.I.SelectClass(SelectedClass);
+            UpdateClasses();
         });
 
         public ICommand NewClassCommand => new RelayCommand(() =>

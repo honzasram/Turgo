@@ -58,6 +58,8 @@ namespace Turgo.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public string Slash { get; } = " / ";
         
         //private int mSideAValue = 0;
         //public int SideAValue
@@ -121,7 +123,7 @@ namespace Turgo.ViewModel
             {
                 A1 = $"{Game.SideA[0].Name} {Game.SideA[0].Surname}";
                 A2 = $"{Game.SideA[1].Name} {Game.SideA[1].Surname}";
-                B1 = $"{Game.SideA[0].Name} {Game.SideA[0].Surname}";
+                B1 = $"{Game.SideB[0].Name} {Game.SideB[0].Surname}";
                 B2 = $"{Game.SideB[1].Name} {Game.SideB[1].Surname}";
             }
             catch (Exception e)

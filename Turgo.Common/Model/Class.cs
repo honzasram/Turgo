@@ -48,10 +48,24 @@ namespace Turgo.Common.Model
                 OnPropertyChanged();
             }
         }
+        [XmlIgnore]
+        private bool mSelected;
+        [XmlIgnore]
+        public bool Selected
+        {
+            get { return mSelected; }
+            set
+            {
+                if (mSelected == value) return;
+                mSelected = value;
+                SetShowName();
+                OnPropertyChanged();
+            }
+        }
 
         private void SetShowName()
         {
-            ShowName = $"{Name} - {Year}: {Rounds?.Count} kol" + (Finished?" Ukončena":"");
+            ShowName = $"{Name} - {Year}: {Rounds?.Count} kol" + (Finished?" Ukončena":"") + (Selected?" Vybrána":"");
         } 
     }
 }

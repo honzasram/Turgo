@@ -31,6 +31,8 @@ namespace Turgo.ViewModel
             {
                 if (mUserBaseSelected == value) return;
                 mUserBaseSelected = value;
+                TurgoController.I.SelectedPlayers.Clear();
+                LoadPlayers();
                 OnPropertyChanged();
             }
         }

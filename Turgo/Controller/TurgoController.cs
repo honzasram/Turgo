@@ -91,6 +91,12 @@ namespace Turgo.Controller
 
         public void SelectClass(Class aSelectedItem)
         {
+            TurgoSettings.I.Model.ClassList.ForEach(a =>
+            {
+                a.Selected = false;
+            });
+            aSelectedItem.Selected = true;
+
             var lIndex = TurgoSettings.I.Model.ClassList.FindIndex(a=>a == aSelectedItem);
             TurgoSettings.I.SelectedClassIndex = lIndex;
             TurgoSettings.Save(TurgoSettings.I);
