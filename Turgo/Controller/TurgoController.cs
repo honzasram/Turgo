@@ -74,6 +74,8 @@ namespace Turgo.Controller
             {
                 TurgoSettings.Load();
             }
+
+            TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex].Selected = true;
         }
     }
 
