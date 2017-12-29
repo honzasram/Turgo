@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Sramek.FX;
 using Sramek.FX.WPF;
@@ -68,13 +69,20 @@ namespace Turgo.ViewModel
             Round = aRound;
             var GameList = Enumerable.Repeat(GameViewModel.GetEmpty(), Round.CourtCount).ToList();
             GameViewModelList = new FullyObservableCollection<GameViewModel>(GameList);
+            Round.Games.ForEach(a=>
+            {
+                a.Result.Sets = new List<Set>();
+                for (int i = 0; i < Round.SetCountPerGame; i++)
+                    a.Result.Sets.Add(new Set());
+            });
+
             Games = new FullyObservableCollection<Game>(Round.Games);
         }
         
         private void InsertSelectedGame(Game aGame)
         {
             var lVM = new GameViewModel(aGame) { FinishingAction = ClearFinishedGame };
-
+            
             for (int i = 0; i < GameViewModelList.Count; i++)
             {
                 if (GameViewModelList[i] == null)

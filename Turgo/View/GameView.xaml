@@ -6,7 +6,7 @@
              xmlns:converter="clr-namespace:Sramek.FX.WPF.Converter;assembly=Sramek.FX"
              xmlns:common="clr-namespace:Turgo"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="200" d:DesignWidth="300">
     <UserControl.Resources>
         <converter:StringMultibindConvertor x:Key="MultibindConvertor"/>
     </UserControl.Resources>
@@ -22,8 +22,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="1" VerticalAlignment="Center" FontSize="24">vs.</Label>
@@ -41,7 +42,7 @@
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Game.Result.ASideWon}" Value="true">
+                            <DataTrigger Binding="{Binding Game.Result.AWinner}" Value="true">
                                 <DataTrigger.Setters>
                                     <Setter Property="Background" Value="Chartreuse" />
                                 </DataTrigger.Setters>
@@ -63,7 +64,7 @@
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Game.Result.BSideWon}" Value="true">
+                            <DataTrigger Binding="{Binding Game.Result.BWinner}" Value="true">
                                 <DataTrigger.Setters>
                                     <Setter Property="Background" Value="Chartreuse" />
                                 </DataTrigger.Setters>
@@ -73,11 +74,24 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <Button Command="{Binding WonCommand}" CommandParameter="A" Content="{Binding Won, Source={x:Static common:TurgoLoc.I}}" Grid.Row="1" Grid.Column="0"/>
-            <Button Command="{Binding WonCommand}" CommandParameter="B"  Content="{Binding Won, Source={x:Static common:TurgoLoc.I}}"  Grid.Row="1" Grid.Column="2"/>
+            <Grid Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" x:Name="SetGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+            </Grid>
 
-            <!--<metro:NumericUpDown Value="{Binding SideAValue}" Minimum="0" Grid.Row="1" Grid.Column="0" />
-            <metro:NumericUpDown Value="{Binding SideBValue}" Minimum="0"     Grid.Row="1" Grid.Column="2"/>-->
+            <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Margin="0,0,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Command="{Binding PointCommand}" CommandParameter="A" Content="2:0" Grid.Column="0" Margin="0,0,2,0"/>
+                <Button Command="{Binding PointCommand}" CommandParameter="R" Content="1:1" Grid.Column="1" Margin="2,0,2,0"/>
+                <Button Command="{Binding PointCommand}" CommandParameter="B" Content="0:2" Grid.Column="2" Margin="2,0,0,0"/>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

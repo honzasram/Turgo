@@ -69,6 +69,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WPF\Converter\MultibindConvertor.cs" />
+    <Compile Include="WPF\Converter\String2IntConverter.cs" />
     <Compile Include="WPF\Loc.cs" />
     <Compile Include="WPF\SimpleCommand.cs" />
     <Compile Include="WPF\ViewModel\BaseWindowViewModel.cs" />

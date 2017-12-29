@@ -32,6 +32,9 @@ namespace Turgo.Common.Model
         }
 
         [XmlIgnore]
+        public object Parent { get; set; }
+
+        [XmlIgnore]
         private string mShowName;
         [XmlIgnore]
         public string ShowName
@@ -84,7 +87,7 @@ namespace Turgo.Common.Model
         public static string UserShortcutName(User aUser)
         {
             if(!string.IsNullOrEmpty(aUser.Surname))
-                return $"{aUser.Name} {aUser.Surname[0]}.";
+                return $"{aUser.Name} {aUser.Surname[0]}{aUser.Surname[1]}.";
 
             return $"{aUser.Name}";
         }

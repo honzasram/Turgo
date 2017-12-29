@@ -9,7 +9,8 @@
         xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:common="clr-namespace:Turgo"
-        mc:Ignorable="d"
+        mc:Ignorable="d" FontSize="16" WindowStartupLocation="CenterScreen" 
+                      WindowState="Maximized"
         Title="Turgo" Height="350" Width="525">
     
     <controls:MetroWindow.DataContext>
@@ -40,6 +41,15 @@
     
     <Window.Resources>
         <system:String x:Key="Partition">DEFAULT</system:String>
+        <Style TargetType="{x:Type Control}" x:Key="baseStyle">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource baseStyle}"></Style>
+        <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource baseStyle}"></Style>
     </Window.Resources>
     
     <dockablz:Layout Partition="{StaticResource Partition}">

@@ -35,7 +35,7 @@ namespace Turgo.Common
                 AttentedPlayers = lAttendingPlayers,
                 CourtCount = aCourts,
                 DateTime = aDate,
-                Describtion = aDescribtion,
+                Description = aDescribtion,
                 Games = new List<Game>(),
                 Place = aPlace
             };
@@ -49,7 +49,7 @@ namespace Turgo.Common
                 lPairB.Add(lAttendingPlayers.Find(a=>a.ID == iGame.Item2.Item1));
                 lPairB.Add(lAttendingPlayers.Find(a=>a.ID == iGame.Item2.Item2));
 
-                var lGame = new Game {SideA = lPairA, SideB = lPairB, Result = new GameResult()};
+                var lGame = new Game {SideA = lPairA, SideB = lPairB, Result = new GameResult(), Parent = lRound };
                 lRound.Games.Add(lGame);
             }
 

@@ -32,38 +32,6 @@
                     <Setter Property="AlternatingRowBackground" Value="{DynamicResource GrayBrush10}" />
                 </Style>
             </DataGrid.Style>
-            <!--<DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Command="{Binding NewPlayerCommand}">
-                        <MenuItem.Header>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} {1}">
-                                        <MultiBinding.Bindings>
-                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="New"></Binding>
-                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="Player"></Binding>
-                                        </MultiBinding.Bindings>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </MenuItem.Header>
-                    </MenuItem>
-                    <MenuItem Command="{Binding DeletePlayerCommand}">
-                        <MenuItem.Header>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} {1}">
-                                        <MultiBinding.Bindings>
-                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="Delete"></Binding>
-                                            <Binding Source="{x:Static turgo:TurgoLoc.I}" Path="Player"></Binding>
-                                        </MultiBinding.Bindings>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </MenuItem.Header>
-                    </MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>-->
             <DataGrid.RowStyle>
                 <Style BasedOn="{StaticResource MetroDataGridRow}" TargetType="{x:Type DataGridRow}">
                     <Style.Triggers>
@@ -80,7 +48,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <!--<Button Content="{Binding Load, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding LoadPlayersCommand}" />-->
             <CheckBox Content="{Binding UserBase, Source={x:Static turgo:TurgoLoc.I}}" IsChecked="{Binding UserBaseSelected}" Command="{Binding UserBaseCommand}" />
-            <Button Content="{Binding Save, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding SavePlayersCommand}" />
+            <Button Margin="4" Content="{Binding Save, Source={x:Static turgo:TurgoLoc.I}}" Command="{Binding SavePlayersCommand}" />
         </StackPanel>
     </Grid>
 </UserControl>

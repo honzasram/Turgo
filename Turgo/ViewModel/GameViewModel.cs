@@ -11,6 +11,9 @@ namespace Turgo.ViewModel
         public Game Game { get; }
         public Action<GameViewModel> FinishingAction { get; set; }
 
+        private Round Round => Game.Parent as Round;
+
+        #region NotifiedProperties
         private string mA1;
         public string A1
         {
@@ -59,59 +62,37 @@ namespace Turgo.ViewModel
             }
         }
 
-        public string Slash { get; } = " / ";
-        
-        //private int mSideAValue = 0;
-        //public int SideAValue
-        //{
-        //    get { return mSideAValue; }
-        //    set
-        //    {
-        //        if (mSideAValue == value) return;
-        //        mSideAValue = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        //private int mSideBValue = 0;
-        //public int SideBValue
-        //{
-        //    get { return mSideBValue; }
-        //    set
-        //    {
-        //        if (mSideBValue == value) return;
-        //        mSideBValue = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
-        public ICommand WonCommand => new RelayCommand<string>(a =>
-        {
-            if (a == "A")
-            {
-                Game.Result.ASideWon = true;
-                Game.Result.BSideWon = false;
-            }
-            else if(a == "B")
-            {
-                Game.Result.ASideWon = false;
-                Game.Result.BSideWon = true;
-            }
-        });
-
-        //public ICommand NewSetCommand => new RelayCommand(() =>
-        //{
-        //    var lSet = new Set {SideA = SideAValue, SideB = SideBValue};
-        //    Game.Result.Sets.Add(lSet);
-
-        //    SideAValue = 0;
-        //    SideBValue = 0;
-        //});
+        public string Slash { get; } = " / "; 
+        #endregion
 
         public ICommand EndGameCommand => new RelayCommand(() =>
         {
             Game.Finished = true;
             FinishingAction?.Invoke(this);
+        });
+
+        public ICommand PointCommand => new RelayCommand<char>(a =>
+        {
+            switch (a)
+            {
+                case 'A':
+                    Game.Result.Sets.ForEach(b=>b.SideA = Round.MaximumPointsPerSet);
+                    Game.Result.Sets.ForEach(b=>b.SideB = 0);
+                    break;
+                case 'R':
+                    Game.Result.Sets[0].SideA = Round.MaximumPointsPerSet;
+                    Game.Result.Sets[1].SideB = Round.MaximumPointsPerSet;
+                    Game.Result.Sets[1].SideA = 0;
+                    Game.Result.Sets[0].SideB = 0;
+                    break;
+                case 'B':
+                    Game.Result.Sets.ForEach(b => b.SideA = 0);
+                    Game.Result.Sets.ForEach(b => b.SideB = Round.MaximumPointsPerSet);
+                    break;
+                default:
+                    throw new Exception("Unrecognized parameter");
+            }
+            OnPropertyChanged("Game");
         });
 
         public GameViewModel(Game aGame)
