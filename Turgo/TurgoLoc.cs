@@ -97,6 +97,12 @@ namespace Turgo
         [Default("User Base")]
         public string UserBase { get; set; }
 
+        [Default("Date")]
+        public string Date { get; set; }
+
+        [Default("Round No.")]
+        public string RoundNo { get; set; }
+
         public TurgoLoc()
         {
             Load();

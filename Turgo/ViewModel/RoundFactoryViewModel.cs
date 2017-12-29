@@ -13,6 +13,7 @@ namespace Turgo.ViewModel
 {
     public class RoundFactoryViewModel : StandartViewModel
     {
+        #region NotifiedProperties
         private int mPlayersCount;
         public int PlayersCount
         {
@@ -61,6 +62,31 @@ namespace Turgo.ViewModel
             }
         }
 
+        private DateTime mRoundDate;
+        public DateTime RoundDate
+        {
+            get { return mRoundDate; }
+            set
+            {
+                if (mRoundDate == value) return;
+                mRoundDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int mRoundNo;
+        public int RoundNo
+        {
+            get { return mRoundNo; }
+            set
+            {
+                if (mRoundNo == value) return;
+                mRoundNo = value;
+                OnPropertyChanged();
+            }
+        } 
+        #endregion
+
         public ObservableCollection<User> SelectedUsers => TurgoController.I.SelectedPlayers;
 
         public ICommand OpenRoundCommand => new RelayCommand(() =>
@@ -93,6 +119,10 @@ namespace Turgo.ViewModel
                 mLog.Error(Messages.BuildErrorMessage(e));
                 return;
             }
+            if(lRound == null) throw new Exception("Generated null. What the....");
+
+            lRound.DateTime = RoundDate;
+            lRound.Number = RoundNo;
 
             BaseWindowViewModel.I.ShowTab("Round", new RoundViewModel(lRound));
             Close(this);
@@ -101,6 +131,7 @@ namespace Turgo.ViewModel
         public RoundFactoryViewModel()
         {
             PlayersCount = SelectedUsers.Count;
+            RoundDate = DateTime.Now;
             if (PlayersCount < 8)
             {
                 StandardMetroViewService.I.Message("Málo hráčů", "Vyberte alespoň osm hráču.");
