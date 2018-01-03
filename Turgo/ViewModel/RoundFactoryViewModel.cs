@@ -94,26 +94,26 @@ namespace Turgo.ViewModel
             Round lRound = null;
             try
             {
-                lRound = RoundFactory.CreateRound(
+                lRound = RoundFactory.CreateRound2(
                     SelectedUsers.Select(a => a.ID).ToList(),
                     TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
                     DateTime.Now, CourtCount,
                     "",
                     "");
             }
-            catch (NowEvenCountException)
-            {
-                var lUneven = StandardMetroViewService.I.OkCancelQuestion("Pozor", "Tento počet kurtů a hráčů nelze kombinovat. Jeden hráč bude v nevýhodě a bude mít o kolo méně. Checte přesto pokračovat?");
-                if (lUneven)
-                {
-                    lRound = RoundFactory.CreateRound(
-                        SelectedUsers.Select(a => a.ID).ToList(),
-                        TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
-                        DateTime.Now, CourtCount,
-                        "",
-                        "", true);
-                }
-            }
+            //catch (NowEvenCountException)
+            //{
+            //    var lUneven = StandardMetroViewService.I.OkCancelQuestion("Pozor", "Tento počet kurtů a hráčů nelze kombinovat. Jeden hráč bude v nevýhodě a bude mít o kolo méně. Checte přesto pokračovat?");
+            //    if (lUneven)
+            //    {
+            //        lRound = RoundFactory.CreateRound(
+            //            SelectedUsers.Select(a => a.ID).ToList(),
+            //            TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
+            //            DateTime.Now, CourtCount,
+            //            "",
+            //            "", true);
+            //    }
+            //}
             catch (Exception e)
             {
                 mLog.Error(Messages.BuildErrorMessage(e));
@@ -138,6 +138,7 @@ namespace Turgo.ViewModel
                 throw new Exception("Under 8 players! need more...");
             }
 
+            CourtCount = CourtCountCalc(PlayersCount, 4);
             CheckGeneratingCondition();
             SelectedUsers.CollectionChanged += (a, b) => CheckGeneratingCondition();
         }
@@ -150,6 +151,17 @@ namespace Turgo.ViewModel
                 return false;
             }
             return true;
+        }
+
+        private static int CourtCountCalc(int aPlayers, int aPlayersPerGame)
+        {
+            int lCnt = 1;
+            while (((aPlayers/(double)lCnt)-aPlayersPerGame)*lCnt >= aPlayersPerGame)
+            {
+                lCnt++;
+            }
+
+            return lCnt;
         }
     }
 }

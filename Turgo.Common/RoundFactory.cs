@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Turgo.Common.Model;
 
@@ -100,6 +101,109 @@ namespace Turgo.Common
             var lLast = aDict.Where(a => a.Value == aDict.Min(b => b.Value)).Select(a => a.Key).ToArray();
             var lRand = lLast[aRandom.Next(lLast.Length)];
             return lRand;
+        }
+
+
+        public static Round CreateRound2(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts,
+            string aDescribtion, string aPlace)
+        {
+            var lSittingPlaces = Convert.ToInt32(((aUsers.Count / (double) aCourts) - 4) * aCourts);
+            
+            var lAttendingPlayers = aClass.UserBase.Where(a => aUsers.Contains(a.ID)).ToList();
+            var lRound = new Round
+            {
+                AttentedPlayers = lAttendingPlayers,
+                CourtCount = aCourts,
+                DateTime = aDate,
+                Description = aDescribtion,
+                Games = new List<Game>(),
+                Place = aPlace
+            };
+
+            var lPairs = new List<Tuple<uint, uint>>();
+            var lSittingDict = new Dictionary<uint, int>();
+            lAttendingPlayers.ForEach(a => lSittingDict.Add(a.ID, 0));
+
+            int lWhilectn = 0;
+            do
+            {
+                var lSitting = new int[lSittingPlaces];
+                for (int i = 0; i < lSittingPlaces; i++) lSitting[i] = -1;
+                for (int i = 0; i < lSittingPlaces; i++)
+                {
+                    
+                    int aLimit = 0;
+                    var lSelected = RandomItemFromMin(lSittingDict, mRandom);
+                    while (lSitting.Any(a=>a==lSelected))
+                    {
+                        lSelected = RandomItemFromMin(lSittingDict, mRandom);
+                        if(aLimit == 50) throw new Exception("Cycled...");
+                        aLimit++;
+                    }
+                    lSitting[i] = (int) lSelected;
+                    lSittingDict[(uint) lSitting[i]] += 1;
+                }
+
+                var lPlayingRest = lSittingDict.Keys.Where(a => !lSitting.Contains((int)a)).ToList();
+                var lRoundPairs = CreatePairs(lPlayingRest);
+                if (lRoundPairs.Count % 2 != 0) throw new Exception("Not event count of pairs");
+
+                var lGames = CreateGames(lRoundPairs, false);
+                foreach (var iGame in lGames)
+                {
+                    var lPairA = new List<User>();
+                    lPairA.Add(lAttendingPlayers.Find(a => a.ID == iGame.Item1.Item1));
+                    lPairA.Add(lAttendingPlayers.Find(a => a.ID == iGame.Item1.Item2));
+                    var lPairB = new List<User>();
+                    lPairB.Add(lAttendingPlayers.Find(a => a.ID == iGame.Item2.Item1));
+                    lPairB.Add(lAttendingPlayers.Find(a => a.ID == iGame.Item2.Item2));
+
+                    var lGame = new Game {SideA = lPairA, SideB = lPairB, Result = new GameResult(), Parent = lRound};
+                    lRound.Games.Add(lGame);
+                }
+
+                if (lWhilectn == 10000)
+                {
+                    throw new Exception("Too many rounds?");
+                }
+
+                lWhilectn++;
+                if (lSittingPlaces == 0)
+                {
+                    foreach (var iKey in lSittingDict.Keys.ToList())
+                    {
+                        lSittingDict[iKey] += 1;
+                    }
+                }
+            } while (lSittingDict.Values.Min() != lSittingDict.Values.Max() || lSittingDict.Values.Min() == 0);
+
+            return lRound;
+        }
+
+        private static List<Tuple<uint, uint>> CreatePairs(List<uint> aPlayers)
+        {
+            var lPairs = new List<Tuple<uint,uint>>();
+            var lCnt = aPlayers.Count;
+            for (int i = 0; i < lCnt /2 ; i++)
+            {
+                var lA = RandomFrom(aPlayers, mRandom);
+                var lB = RandomFrom(aPlayers, mRandom);
+                if (lA < lB)
+                    lPairs.Add(new Tuple<uint, uint>(lA, lB));
+                else
+                    lPairs.Add(new Tuple<uint, uint>(lB, lA));
+            }
+
+            if(aPlayers.Any()) throw new Exception("Leaved players");
+            return lPairs;
+        }
+
+        private static uint RandomFrom(List<uint> aPlayers, Random mRandom)
+        {
+            var lSelected = mRandom.Next(aPlayers.Count);
+            var lNumber = aPlayers[lSelected];
+            aPlayers.RemoveAt(lSelected);
+            return lNumber;
         }
     }
 

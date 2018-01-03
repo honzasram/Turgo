@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Turgo.Common;
 using Sramek.FX;
@@ -38,26 +39,31 @@ namespace Turgo.Test
         [TestMethod]
         public void CreatingGamesRand()
         {
-            TestGenerating(150,1);
-            TestGenerating(150,2);
-            TestGenerating(150,3);
-            TestGenerating(150,4);
-            TestGenerating(150,5);
+            TestGenerating(150,1,8);
+            TestGenerating(150,2,8);
+            TestGenerating(150,3,8);
+            TestGenerating(150,4,8);
+            TestGenerating(150,5,8);
         }
 
         [TestMethod]
         public void CreatingGamesShort()
         {
-            TestGenerating(150,3);
+            for (int j = 8; j < 21; j++)
+            {
+                var i = CourtCountCalc(j, 4);
+                Console.Write($"c {i} - p {j}");
+                TestGenerating(100, i, j);
+            }
         }
 
         [TestMethod]
         public void CreatingGameLong()
         {
-           TestGenerating(150*200,3);
+           TestGenerating(150*200,2,8);
         }
 
-        private void TestGenerating(int aCycles, int aCourts)
+        private void TestGenerating(int aCycles, int aCourts, int aPlayers)
         {
             var lClass = new Class
             {
@@ -73,13 +79,107 @@ namespace Turgo.Test
                     new User {ID = 7,  Name = "H"},
                     new User {ID = 8,  Name = "I"},
                     new User {ID = 9,  Name = "J"},
-                    new User {ID = 10, Name = "K"}
+                    new User {ID = 10, Name = "K"},
+                    new User {ID = 11, Name = "L"},
+                    new User {ID = 12, Name = "M"},
+                    new User {ID = 13, Name = "N"},
+                    new User {ID = 14, Name = "O"},
+                    new User {ID = 15, Name = "P"},
+                    new User {ID = 16, Name = "Q"},
+                    new User {ID = 17, Name = "R"},
+                    new User {ID = 18, Name = "S"},
+                    new User {ID = 19, Name = "T"},
+                    new User {ID = 20, Name = "U"},
                 }
             };
-            var lMax = 0;
+            var lMax = 0.0;
+            bool lEven = true;
             for (int i = 0; i < aCycles; i++)
             {
-                var lRound = RoundFactory.CreateRound(new List<uint> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, lClass, DateTime.Now, aCourts, "", "");
+                var lRound = RoundFactory.CreateRound(lClass.UserBase.Take(aPlayers).Select(a => a.ID).ToList(), lClass, DateTime.Now, aCourts, "", "", true);
+
+                var lGames = lRound.Games;
+
+                foreach (var iGame in lGames)
+                {
+                    var lIDs = iGame.SideA.Select(a => a.ID).ToList();
+                    lIDs.AddRange(iGame.SideB.Select(a => a.ID));
+                    Assert.IsFalse(lIDs.GroupBy(a => a).Any(a => a.Count() > 1));
+                }
+
+                var lIds = lGames.SelectMany(a => a.SideA.Select(b => b.ID)).ToList();
+                lIds.AddRange(lGames.SelectMany(a => a.SideB.Select(b => b.ID)).ToList());
+                var lGrouping = lIds.GroupBy(a => a).Select(a => new { a.Key, Count = a.Count() }).ToList();
+                //Assert.IsTrue(lGrouping.Select(a => a.Count).Max() == lGrouping.Select(a => a.Count).Min());
+                if (lEven) lEven = lGrouping.Select(a => a.Count).Max() == lGrouping.Select(a => a.Count).Min();
+                if (lMax == 0) lMax = lGrouping.Select(a => a.Count).Max();
+                else lMax = lGrouping.Select(a => a.Count).Max() * 0.01 + lMax * 0.99;
+            }
+            Console.Write( lEven ? "" : " nerovne ");
+            Console.WriteLine($" - g {lMax}");
+        }
+
+        [TestMethod]
+        public void CreatingGamesShort2()
+        {
+            for (int j = 8; j < 21; j++)
+            {
+                var i = CourtCountCalc(j, 4);
+                Console.Write($"c {i} - p {j}");
+                TestGenerating2(1, i, j);
+            }
+        }
+
+        private static int CourtCountCalc(int aPlayers, int aPlayersPerGame)
+        {
+            int lCnt = 1;
+            while (((aPlayers / (double)lCnt) - aPlayersPerGame) * lCnt >= aPlayersPerGame)
+            {
+                lCnt++;
+            }
+
+            return lCnt;
+        }
+
+        [TestMethod]
+        public void CustomGame()
+        {
+            TestGenerating2(100, 3, 15);
+        }
+
+        private void TestGenerating2(int aCycles, int aCourts, int aPlayers)
+        {
+            var lClass = new Class
+            {
+                UserBase = new List<User>
+                {
+                    new User {ID = 0,  Name = "A"},
+                    new User {ID = 1,  Name = "B"},
+                    new User {ID = 2,  Name = "C"},
+                    new User {ID = 3,  Name = "D"},
+                    new User {ID = 4,  Name = "E"},
+                    new User {ID = 5,  Name = "F"},
+                    new User {ID = 6,  Name = "G"},
+                    new User {ID = 7,  Name = "H"},
+                    new User {ID = 8,  Name = "I"},
+                    new User {ID = 9,  Name = "J"},
+                    new User {ID = 10, Name = "K"},
+                    new User {ID = 11, Name = "L"},
+                    new User {ID = 12, Name = "M"},
+                    new User {ID = 13, Name = "N"},
+                    new User {ID = 14, Name = "O"},
+                    new User {ID = 15, Name = "P"},
+                    new User {ID = 16, Name = "Q"},
+                    new User {ID = 17, Name = "R"},
+                    new User {ID = 18, Name = "S"},
+                    new User {ID = 19, Name = "T"},
+                    new User {ID = 20, Name = "U"},
+                }
+            };
+            var lMax = 0.0;
+            for (int i = 0; i < aCycles; i++)
+            {
+                var lRound = RoundFactory.CreateRound2( lClass.UserBase.Take(aPlayers).Select(a=>a.ID).ToList(), lClass, DateTime.Now, aCourts, "", "");
 
                 var lGames = lRound.Games;
 
@@ -94,9 +194,10 @@ namespace Turgo.Test
                 lIds.AddRange(lGames.SelectMany(a => a.SideB.Select(b => b.ID)).ToList());
                 var lGrouping = lIds.GroupBy(a => a).Select(a => new { a.Key, Count = a.Count() }).ToList();
                 Assert.IsTrue(lGrouping.Select(a => a.Count).Max() == lGrouping.Select(a => a.Count).Min());
-                lMax = lGrouping.Select(a => a.Count).Max();
+                if (lMax == 0) lMax = lGrouping.Select(a => a.Count).Max();
+                else lMax = lGrouping.Select(a => a.Count).Max()*0.01 + lMax * 0.99;
             }
-            Console.WriteLine($"c {aCourts} - g {lMax}");
+            Console.WriteLine($" - g {lMax}");
         }
 
     }
