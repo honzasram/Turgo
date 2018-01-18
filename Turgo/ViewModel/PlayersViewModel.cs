@@ -60,6 +60,7 @@ namespace Turgo.ViewModel
 
         private void LoadPlayers()
         {
+            User.No = 1;
             if (UserBaseSelected)
             {
                 Players = new FullyObservableCollection<User>(TurgoController.I.GetStandardUserBase());

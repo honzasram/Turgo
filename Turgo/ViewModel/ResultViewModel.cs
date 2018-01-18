@@ -37,16 +37,19 @@ namespace Turgo.ViewModel
                 var lBuilder = new StringBuilder();
                 var lBaseUserList = TurgoController.I.GetUserBase();
 
-                lBuilder.AppendLine($"Jméno; Výherních setů; Bodů získal; Bodů dostal");
+                var lPoradi = 1;
+                lBuilder.AppendLine($"Pořadí;Jméno; Výherních setů; Bodů získal; Bodů dostal");
                 foreach (var iItem in mResultDict.Values
                     .OrderByDescending(a=>a.SetsWon)
                     .ThenByDescending(a=>a.PointsWon)
                     .ThenBy(a=>a.PointsLost))
                 {
-                    lBuilder.AppendLine($"{GameNameFactory.UserName(lBaseUserList.First(a => a.ID == iItem.UserId))}; " +
+                    lBuilder.AppendLine($"{lPoradi}; " +
+                                        $"{GameNameFactory.UserName(lBaseUserList.First(a => a.ID == iItem.UserId))}; " +
                                         $"{iItem.SetsWon}; " +
                                         $"{iItem.PointsWon}; " +
                                         $"{iItem.PointsLost};");
+                    lPoradi++;
                 }
 
                 using (var lWriter = new StreamWriter(lFileName, false, Encoding.UTF8))
@@ -140,11 +143,13 @@ namespace Turgo.ViewModel
                 var lCount = mResultDict[iUser];
                 lList.Add(new Tuple<User, uint, uint, uint>(lBaseUserList.First(a => a.ID == iUser), lCount.SetsWon, lCount.PointsWon, lCount.PointsLost));
             }
+
+            var lPoradi = 1;
             RoundResultList = new ObservableCollection<Tuple<User, string>>(
                 lList.OrderByDescending(a => a.Item2)
                     .ThenByDescending(a=>a.Item3)
                     .ThenBy(a=>a.Item4)
-                    .Select(a => new Tuple<User, string>(a.Item1, $"{a.Item1.Name} {a.Item1.Surname} - {a.Item2} výher - {a.Item3}:{a.Item4} bodů"))
+                    .Select(a => new Tuple<User, string>(a.Item1, $"{lPoradi++}> {a.Item1.Name} {a.Item1.Surname} - {a.Item2} výher - {a.Item3}:{a.Item4} bodů"))
                     .ToList());
         }
     }

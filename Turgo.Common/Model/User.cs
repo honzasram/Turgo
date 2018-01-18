@@ -9,6 +9,15 @@ namespace Turgo.Common.Model
     /// </summary>
     public class User : ObservableObject,ISelectable, IChangeable
     {
+        [XmlIgnore]
+        private static int _no;
+        [XmlIgnore]
+        public static int No
+        {
+            get { return _no++; }
+            set { _no = value; }
+        }
+
         [XmlAttribute]
         public string Name { get; set; }
         [XmlAttribute]
@@ -18,6 +27,8 @@ namespace Turgo.Common.Model
 
         [XmlIgnore]
         private bool mIsSelected;
+
+
         [XmlIgnore]
         public bool IsSelected
         {

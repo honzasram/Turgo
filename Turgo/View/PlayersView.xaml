@@ -20,6 +20,7 @@
                   ItemsSource="{Binding Players}"
                   SelectionUnit="FullRow">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding No}" Header="Pořadí" />
                 <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"

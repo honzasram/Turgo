@@ -93,6 +93,8 @@ namespace Turgo.Controller
 
         public void SelectClass(Class aSelectedItem)
         {
+            TurgoController.I.SelectedPlayers.Clear();
+
             TurgoSettings.I.Model.ClassList.ForEach(a =>
             {
                 a.Selected = false;
