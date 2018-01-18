@@ -12,30 +12,6 @@ namespace Turgo.Test
     [TestClass]
     public class UnitTest
     {
-        //[TestMethod]
-        //public void Winners()
-        //{
-        //    var lResult = new GameResult {Sets = new List<Set>
-        //    {
-        //        new Set {SideA = 21, SideB = 15},
-        //        new Set {SideA = 15, SideB = 21},
-        //        new Set {SideA = 21, SideB = 15},
-        //    } };
-
-        //    Assert.IsTrue( lResult.AWinner);
-        //    Assert.IsFalse(lResult.BWinner);
-        //    lResult.Sets.Add(new Set { SideA = 15, SideB = 21 });
-        //    lResult.Sets.Add(new Set { SideA = 15, SideB = 21 });
-
-        //    Assert.IsTrue(lResult.BWinner);
-        //    Assert.IsFalse(lResult.AWinner);
-
-        //    lResult.Sets.Add(new Set { SideB = 15, SideA = 21 });
-
-        //    Assert.IsFalse(lResult.BWinner);
-        //    Assert.IsFalse(lResult.AWinner);
-        //}
-
         [TestMethod]
         public void CreatingGamesRand()
         {
@@ -179,7 +155,7 @@ namespace Turgo.Test
             var lMax = 0.0;
             for (int i = 0; i < aCycles; i++)
             {
-                var lRound = RoundFactory.CreateRound2( lClass.UserBase.Take(aPlayers).Select(a=>a.ID).ToList(), lClass, DateTime.Now, aCourts, "", "");
+                var lRound = RoundFactory.CreateRound2(lClass.UserBase.Take(aPlayers).Select(a=>a.ID).ToList(), lClass, DateTime.Now, aCourts, "", "", 1);
 
                 var lGames = lRound.Games;
 

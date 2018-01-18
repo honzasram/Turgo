@@ -103,6 +103,9 @@ namespace Turgo
         [Default("Round No.")]
         public string RoundNo { get; set; }
 
+        [Default("Min game count")]
+        public string MinGameCount { get; set; }
+
         public TurgoLoc()
         {
             Load();

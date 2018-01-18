@@ -28,6 +28,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label>
                     <Label.Content>
@@ -46,10 +48,12 @@
                 <Label Grid.Row="2" Content="{Binding CourtCount, Source={x:Static turgo:TurgoLoc.I}}"/>
                 <Label Grid.Row="4" Content="{Binding Date, Source={x:Static turgo:TurgoLoc.I}}"/>
                 <Label Grid.Row="6" Content="{Binding RoundNo, Source={x:Static turgo:TurgoLoc.I}}"/>
+                <Label Grid.Row="8" Content="{Binding MinGameCount, Source={x:Static turgo:TurgoLoc.I}}"/>
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding PlayersCount}" />
                 <controls:NumericUpDown Grid.Row="2" Grid.Column="2" Value="{Binding CourtCount}" Minimum="1" Maximum="8" MinWidth="80"/>
                 <DatePicker Grid.Row="4" Grid.Column="2" SelectedDate="{Binding RoundDate}"/>
                 <controls:NumericUpDown Grid.Row="6" Grid.Column="2" Value="{Binding RoundNo}" Minimum="1" MinWidth="80"/>
+                <controls:NumericUpDown Grid.Row="8" Grid.Column="2" Value="{Binding MinGameCount}" Minimum="1" MinWidth="80"/>
 
             </Grid>
         </GroupBox>

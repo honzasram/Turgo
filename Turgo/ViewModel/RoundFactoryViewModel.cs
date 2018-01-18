@@ -50,6 +50,18 @@ namespace Turgo.ViewModel
             }
         }
 
+        private int mMinGameCount = 2;
+        public int MinGameCount
+        {
+            get { return mMinGameCount; }
+            set
+            {
+                if (mMinGameCount == value) return;
+                mMinGameCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string mErrorMessage;
         public string ErrorMessage
         {
@@ -99,7 +111,8 @@ namespace Turgo.ViewModel
                     TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
                     DateTime.Now, CourtCount,
                     "",
-                    "");
+                    "", 
+                    MinGameCount);
             }
             //catch (NowEvenCountException)
             //{

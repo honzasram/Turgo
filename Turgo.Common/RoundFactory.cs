@@ -105,7 +105,7 @@ namespace Turgo.Common
 
 
         public static Round CreateRound2(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts,
-            string aDescribtion, string aPlace)
+            string aDescribtion, string aPlace, int aMultiplicator)
         {
             var lSittingPlaces = Convert.ToInt32(((aUsers.Count / (double) aCourts) - 4) * aCourts);
             
@@ -122,7 +122,9 @@ namespace Turgo.Common
 
             var lPairs = new List<Tuple<uint, uint>>();
             var lSittingDict = new Dictionary<uint, int>();
+            var lPlayedGamesDict = new Dictionary<uint, int>();
             lAttendingPlayers.ForEach(a => lSittingDict.Add(a.ID, 0));
+            lAttendingPlayers.ForEach(a => lPlayedGamesDict.Add(a.ID, 0));
 
             int lWhilectn = 0;
             do
@@ -145,6 +147,7 @@ namespace Turgo.Common
                 }
 
                 var lPlayingRest = lSittingDict.Keys.Where(a => !lSitting.Contains((int)a)).ToList();
+                lPlayingRest.ForEach(a => lPlayedGamesDict[a] += 1);
                 var lRoundPairs = CreatePairs(lPlayingRest);
                 if (lRoundPairs.Count % 2 != 0) throw new Exception("Not event count of pairs");
 
@@ -175,7 +178,10 @@ namespace Turgo.Common
                         lSittingDict[iKey] += 1;
                     }
                 }
-            } while (lSittingDict.Values.Min() != lSittingDict.Values.Max() || lSittingDict.Values.Min() == 0);
+
+                if (lPlayedGamesDict.Values.Min() == lPlayedGamesDict.Values.Max() &&
+                    lPlayedGamesDict.Values.Min() >= aMultiplicator) break;
+            } while (lSittingDict.Values.Min() != lSittingDict.Values.Max() || lSittingDict.Values.Min() == 0 || lPlayedGamesDict.Values.Min() < aMultiplicator);
 
             return lRound;
         }

@@ -32,3 +32,4 @@ Classes;Classes;Třídy
 UserBase;User Base;Standartní seznam
 Date;Date;Datum
 RoundNo;Round No.;Číslo kola
+MinGameCount;Min game count; Min. počet kol
