@@ -33,7 +33,7 @@ namespace Turgo.Common.Model
 
         [XmlIgnore]
         public object Parent { get; set; }
-
+        
         [XmlIgnore]
         private string mShowName;
         [XmlIgnore]

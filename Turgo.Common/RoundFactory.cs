@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -9,7 +10,7 @@ namespace Turgo.Common
 {
     public static class RoundFactory
     {
-        private static readonly Random mRandom = new Random((int)(DateTime.Now.Ticks / 5));
+        private static Random mRandom = new Random((int)(DateTime.Now.Ticks / 25));
 
         public static Round CreateRound(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts, string aDescribtion, string aPlace, bool aIgnoreNotEvenDistribution = false)
         {
@@ -102,12 +103,12 @@ namespace Turgo.Common
             var lRand = lLast[aRandom.Next(lLast.Length)];
             return lRand;
         }
-
-
+        
         public static Round CreateRound2(List<uint> aUsers, Class aClass, DateTime aDate, int aCourts,
             string aDescribtion, string aPlace, int aMultiplicator)
         {
             var lSittingPlaces = Convert.ToInt32(((aUsers.Count / (double) aCourts) - 4) * aCourts);
+            mRandom = new Random((int)(DateTime.Now.Ticks / 25));
             
             var lAttendingPlayers = aClass.UserBase.Where(a => aUsers.Contains(a.ID)).ToList();
             var lRound = new Round
@@ -148,7 +149,8 @@ namespace Turgo.Common
 
                 var lPlayingRest = lSittingDict.Keys.Where(a => !lSitting.Contains((int)a)).ToList();
                 lPlayingRest.ForEach(a => lPlayedGamesDict[a] += 1);
-                var lRoundPairs = CreatePairs(lPlayingRest);
+                var lRoundPairs = CreatePairs(lPlayingRest, ref lPairs);
+                lPairs.AddRange(lRoundPairs);
                 if (lRoundPairs.Count % 2 != 0) throw new Exception("Not event count of pairs");
 
                 var lGames = CreateGames(lRoundPairs, false);
@@ -186,21 +188,53 @@ namespace Turgo.Common
             return lRound;
         }
 
-        private static List<Tuple<uint, uint>> CreatePairs(List<uint> aPlayers)
+        private static List<Tuple<uint, uint>> CreatePairs(List<uint> aPlayers, ref List<Tuple<uint, uint>> aPreviousPairs)
         {
+            var lPlayers = aPlayers.ToList();
             var lPairs = new List<Tuple<uint,uint>>();
-            var lCnt = aPlayers.Count;
-            for (int i = 0; i < lCnt /2 ; i++)
+            var lCnt = lPlayers.Count;
+            for (int i = 0; i < lCnt / 2 ; i++)
             {
-                var lA = RandomFrom(aPlayers, mRandom);
-                var lB = RandomFrom(aPlayers, mRandom);
-                if (lA < lB)
-                    lPairs.Add(new Tuple<uint, uint>(lA, lB));
-                else
-                    lPairs.Add(new Tuple<uint, uint>(lB, lA));
+                var lA = RandomFrom(lPlayers, mRandom);
+                var lB = RandomFrom(lPlayers, mRandom);
+                
+                if (lA > lB)
+                {
+                    var lPom = lA;
+                    lA = lB;
+                    lB = lPom;
+                }
+
+                if (aPreviousPairs.Count(a => a.Item1 == lA && a.Item2 == lB) > 0)
+                {
+                    if (lPlayers.Count > 0)
+                    {
+                        var lB2 = RandomFrom(lPlayers, mRandom);
+                        Debug.Assert(lB != lB2);
+                        lPlayers.Add(lB);
+                        lB = lB2;
+                    }
+                    else
+                    {
+                        lPlayers = aPlayers.ToList();
+                        lPairs.Clear();
+                        i = -1;
+                        continue;
+                    }
+                }
+
+                lPairs.Add(new Tuple<uint, uint>(lA, lB));
             }
 
-            if(aPlayers.Any()) throw new Exception("Leaved players");
+            foreach (var iPair in lPairs)
+            {
+                if (aPreviousPairs.Count(a => a.Item1 == iPair.Item1 && a.Item2 == iPair.Item2) > 0)
+                {
+                    return CreatePairs(aPlayers, ref aPreviousPairs);
+                }
+            }
+
+            if(lPlayers.Any()) throw new Exception("Leaved players");
             return lPairs;
         }
 

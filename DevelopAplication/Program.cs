@@ -14,6 +14,7 @@ using log4net.Util;
 using Sramek.FX;
 using Sramek.FX.WPF;
 using Turgo.Common;
+using Turgo.Common.Model;
 
 namespace DevelopAplication
 {
@@ -25,9 +26,78 @@ namespace DevelopAplication
         static void Main(string[] args)
         {
             ConsoleSetup(false);
-            
-            Console.WriteLine(TLoc.I.Name);
-            Console.ReadKey();
+
+            while (true)
+            {
+                var lClass = new Class
+                {
+                    UserBase = new List<User>
+                {
+                    new User {ID = 0,  Name = "A"},
+                    new User {ID = 1,  Name = "B"},
+                    new User {ID = 2,  Name = "C"},
+                    new User {ID = 3,  Name = "D"},
+                    new User {ID = 4,  Name = "E"},
+                    new User {ID = 5,  Name = "F"},
+                    new User {ID = 6,  Name = "G"},
+                    new User {ID = 7,  Name = "H"},
+                    new User {ID = 8,  Name = "I"},
+                    new User {ID = 9,  Name = "J"},
+                    new User {ID = 10, Name = "K"},
+                    new User {ID = 11, Name = "L"},
+                    new User {ID = 12, Name = "M"},
+                    new User {ID = 13, Name = "N"},
+                    new User {ID = 14, Name = "O"},
+                    new User {ID = 15, Name = "P"},
+                    new User {ID = 16, Name = "Q"},
+                    new User {ID = 17, Name = "R"},
+                    new User {ID = 18, Name = "S"},
+                    new User {ID = 19, Name = "T"},
+                    new User {ID = 20, Name = "U"},
+                }
+                };
+                var lPla = 16;
+                var lRound = RoundFactory.CreateRound2(lClass.UserBase.Take(lPla).Select(a => a.ID).ToList(), lClass, DateTime.Now, CourtCountCalc(lPla), "", "", 5);
+
+
+                var lSelected = lRound.Games.Select(a => a.SideA.Select(b => b.ID.ToString()).Aggregate((c, b) => c + ":" + b)).ToList();
+                lSelected.AddRange(lRound.Games.Select(a => a.SideB.Select(b => b.ID.ToString()).Aggregate((c, b) => c + ":" + b)));
+
+                var lDictionary = new Dictionary<string, int>();
+                var lGrouped = lSelected.GroupBy(a => a);
+                foreach (var iGroup in lGrouped)
+                {
+                    if (lDictionary.ContainsKey(iGroup.Key))
+                    {
+                        lDictionary[iGroup.Key] += iGroup.Count();
+                    }
+                    else
+                    {
+                        lDictionary.Add(iGroup.Key, iGroup.Count());
+                    }
+                }
+
+                foreach (var iKey in lDictionary.Keys.OrderBy(a => a))
+                {
+                    if (lDictionary[iKey] > 1) Console.ForegroundColor = ConsoleColor.Red;
+                    else Console.ResetColor();
+                    Console.WriteLine($"{iKey} - {lDictionary[iKey]}");
+                }
+
+                Console.ReadKey(); 
+                Console.Clear();
+            }
+        }
+
+        private static int CourtCountCalc(int aPlayers, int aPlayersPerGame = 4)
+        {
+            int lCnt = 1;
+            while (((aPlayers / (double)lCnt) - aPlayersPerGame) * lCnt >= aPlayersPerGame)
+            {
+                lCnt++;
+            }
+
+            return lCnt;
         }
 
         private static void CreateGames(List<Tuple<int, int>> aPairs)
