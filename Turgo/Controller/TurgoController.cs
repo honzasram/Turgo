@@ -105,7 +105,13 @@ namespace Turgo.Controller
             TurgoSettings.I.SelectedClassIndex = lIndex;
             TurgoSettings.Save(TurgoSettings.I);
         }
-        
+
+        public void DeleteClass(Class aClassToDelete)
+        {
+            TurgoSettings.I.Model.ClassList.Remove(aClassToDelete);
+            TurgoSettings.Save(TurgoSettings.I);
+        }
+
         public void CreateNew(string aName, int aYear, bool aStandartBase)
         {
             ClassManager.CreateClass(TurgoSettings.I.Model, aStandartBase?TurgoSettings.I.UserBaseList:new List<User>(), aName, aYear);

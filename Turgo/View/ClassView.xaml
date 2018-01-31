@@ -16,6 +16,7 @@
             <Button Command="{Binding SelectClassCommand}" Content="{Binding SelectClass, Source={x:Static turgo:TurgoLoc.I}}"/>
             <Button Command="{Binding NewClassCommand}" Content="{Binding NewClass, Source={x:Static turgo:TurgoLoc.I}}"/>
             <Button Command="{Binding EndClassCommand}" Content="{Binding EndClass, Source={x:Static turgo:TurgoLoc.I}}"/>
+            <Button Command="{Binding DeleteClassCommand}" Content="{Binding Delete, Source={x:Static turgo:TurgoLoc.I}}"/>
         </StackPanel>
     </Grid>
 </UserControl>

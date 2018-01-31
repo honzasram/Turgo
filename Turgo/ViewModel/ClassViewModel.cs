@@ -53,6 +53,12 @@ namespace Turgo.ViewModel
             TurgoSettingsController.I.SaveModel();
         });
 
+        public ICommand DeleteClassCommand => new RelayCommand(() =>
+        {
+            TurgoSettingsController.I.DeleteClass(SelectedClass);
+            UpdateClasses();
+        });
+
         public ClassViewModel()
         {
             UpdateClasses();
