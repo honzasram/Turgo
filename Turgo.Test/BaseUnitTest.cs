@@ -96,6 +96,26 @@ namespace Turgo.Test
         }
 
         [TestMethod]
+        public void TestEdgeCase()
+        {
+            var lClass = GetClass;
+
+            for (int i = 4; i < 25; i++)
+            {
+                for (int j = 8; j < 20; j++)
+                {
+                    Console.WriteLine($"Generating for {j} Users. Min {i} games for one player.");
+                    var lRound = RoundFactory.CreateRound2(
+                        lClass.UserBase.Take(j).Select(a => a.ID).ToList(),
+                        lClass, DateTime.Now, j/4, "", "" , 
+                        i);
+                    Console.WriteLine($"Generated! {lRound.Games.Count} games. ");
+                }
+            }
+        }
+
+
+        [TestMethod]
         public void CreatingGamesShort2()
         {
             for (int j = 8; j < 21; j++)
@@ -106,16 +126,44 @@ namespace Turgo.Test
             }
         }
 
+        private static Class GetClass => new Class
+        {
+            UserBase = new List<User>
+            {
+                new User {ID = 0,  Name = "A"},
+                new User {ID = 1,  Name = "B"},
+                new User {ID = 2,  Name = "C"},
+                new User {ID = 3,  Name = "D"},
+                new User {ID = 4,  Name = "E"},
+                new User {ID = 5,  Name = "F"},
+                new User {ID = 6,  Name = "G"},
+                new User {ID = 7,  Name = "H"},
+                new User {ID = 8,  Name = "I"},
+                new User {ID = 9,  Name = "J"},
+                new User {ID = 10, Name = "K"},
+                new User {ID = 11, Name = "L"},
+                new User {ID = 12, Name = "M"},
+                new User {ID = 13, Name = "N"},
+                new User {ID = 14, Name = "O"},
+                new User {ID = 15, Name = "P"},
+                new User {ID = 16, Name = "Q"},
+                new User {ID = 17, Name = "R"},
+                new User {ID = 18, Name = "S"},
+                new User {ID = 19, Name = "T"},
+                new User {ID = 20, Name = "U"},
+            }
+        };
+
         private static int CourtCountCalc(int aPlayers, int aPlayersPerGame)
         {
-            int lCnt = 1;
-            while (((aPlayers / (double)lCnt) - aPlayersPerGame) * lCnt >= aPlayersPerGame)
-            {
-                lCnt++;
-            }
-
-            return lCnt;
+            //int lCnt = 1;
+            //while (((aPlayers / (double)lCnt) - aPlayersPerGame) * lCnt >= aPlayersPerGame)
+            //{
+            //    lCnt++;
+            //}
+            return Convert.ToInt32(aPlayers/(double) aPlayersPerGame);
         }
+
 
         [TestMethod]
         public void CustomGame()

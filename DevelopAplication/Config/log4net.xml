@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+  </configSections>
+
+  <log4net>
+    <appender name="ConsoleAppender" type="log4net.Appender.ColoredConsoleAppender" >
+      <mapping>
+        <level value="DEBUG" />
+        <foreColor value="White" />
+      </mapping>
+      <mapping>
+        <level value="INFO" />
+        <foreColor value="White, HighIntensity" />
+      </mapping>
+      <mapping>
+        <level value="WARN" />
+        <foreColor value="Yellow, HighIntensity" />
+      </mapping>
+      <mapping>
+        <level value="ERROR" />
+        <foreColor value="Red, HighIntensity" />
+      </mapping>
+      <mapping>
+        <level value="FATAL" />
+        <foreColor value="Red, HighIntensity" />
+      </mapping>
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date; %-5level; %logger; %message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="RollingFileAppender" type="log4net.Appender.RollingFileAppender">
+      <staticLogFileName value="false"/>
+      <file type="log4net.Util.PatternString"
+            value="d:\Ingeteam\MessageLog\%appdomain\"/>
+      <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+      <rollingStyle value="Composite"/>
+      <datePattern value="yyyy-MM-dd-HH&quot;.log&quot;"/>
+      <maxSizeRollBackups value="100"/>
+      <maximumFileSize value="10MB"/>
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date; %-5level; %logger; %message%newline" />
+      </layout>
+    </appender>
+    
+    <root>
+      <level value="INFO" />
+      <appender-ref ref="ConsoleAppender" />
+      <appender-ref ref="RollingFileAppender" />
+    </root>
+
+    <logger name="Ingeteam.FX.Automation.Siemens.Step7Client">
+      <level value="WARN" />
+    </logger>
+    
+    <logger name="Ingeteam.FX.SimpleWatchdog">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Services.Staging.Stage">
+      <level value="INFO" />
+    </logger>
+
+    <logger name="Ingeteam.FX.Automation.Siemens.Step7CyclicTableReader">
+      <level value="WARN" />
+    </logger>
+
+    <logger name="Argus.FX.Modules.MouldTempMonitoring">
+      <level value="WARN" />
+    </logger>
+    
+    <logger name="Argus.FX.Services.Staging.Stage">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Services.ArgusEngineService">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Services.ArgusIOService">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Modules.TCStability">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Modules.BOPSticker">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Modules.UniformMouldTempMonitoring">
+      <level value="INFO" />
+    </logger>
+    
+    <logger name="Argus.FX.Modules.UniformMTMParameterCalculator">
+      <level value="INFO" />
+    </logger>
+
+    <logger name="Argus.FX.Modules.HeatTransfer.HeatTransferDBWorks">
+      <level value="INFO" />
+    </logger>
+
+    <logger name="Argus.FX.Modules.HeatTransfer.HeatTransferCalculations">
+      <level value="INFO" />
+    </logger>
+
+    <logger name="Argus.FX.SimpleStopWatch">
+      <level value="INFO" />
+    </logger>
+
+    <logger name="Ingeteam.FX.Service.ServiceHost">
+      <level value="WARN" />
+    </logger>
+    
+    <logger name="Argus.FX.Common.Modules.LoggerModule">
+      <level value="ERROR" />
+    </logger>
+
+    <logger name="Argus.FX.Helpers.PLCCommunicationHelper">
+      <level value="DEBUG" />
+    </logger>
+
+    <logger name="SpecialDebugLog">
+      <level value="DEBUG" />
+    </logger>
+  </log4net>
+</configuration>
