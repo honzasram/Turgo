@@ -7,7 +7,7 @@ namespace Turgo.Common.Model
     /// <summary>
     /// player
     /// </summary>
-    public class User : ObservableObject,ISelectable, IChangeable
+    public class User : ObservableObject, ISelectable, IChangeable
     {
         [XmlIgnore]
         private static int _no;

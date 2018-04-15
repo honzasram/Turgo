@@ -18,7 +18,8 @@
                   HeadersVisibility="All"
                   RowHeaderWidth="20"
                   ItemsSource="{Binding Players}"
-                  SelectionUnit="FullRow">
+                  SelectionUnit="FullRow" 
+                  controls:DataGridHelper.EnableCellEditAssist="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding No}" Header="Pořadí" />
                 <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
