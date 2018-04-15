@@ -106,7 +106,7 @@ namespace Turgo.ViewModel
             Round lRound = null;
             try
             {
-                lRound = RoundFactory.CreateRound2(
+                lRound = RoundFactory.CreateRound4(
                     SelectedUsers.Select(a => a.ID).ToList(),
                     TurgoSettings.I.Model.ClassList[TurgoSettings.I.SelectedClassIndex],
                     DateTime.Now, CourtCount,
